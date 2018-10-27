@@ -56,3 +56,7 @@ func LogSync(addr string) {
 func logAntiEntropy(peerAddr string) {
 	fmt.Printf("ANTIENTROPY TO %s\n", peerAddr)
 }
+
+func logRoutingTableUpdate(peerName string, peerAddr string) {
+	fmt.Printf("DSDV %s %s\n", peerName, peerAddr)
+}

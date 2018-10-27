@@ -10,6 +10,8 @@ $( document ).ready(function() {
 
     $('#sendMessage').click(postMessage);
     $('#addNode').click(postNode);
+    $('#newMessage').keyup(enableSendMessageBtn);
+    $('#newNode').keyup(enableNewNodeBtn);
 
     function getMessages() {
         let messagesElement = $('#messages');
@@ -36,21 +38,24 @@ $( document ).ready(function() {
 
     function postMessage() {
         const newMessage = $('#newMessage').val();
-        const GossipPacket = {
-            Simple: {
-                OriginalName: '',
-                RelayPeerAddr: '',
-                Contents: newMessage,
-            }
-        };
-        const packet = JSON.stringify(GossipPacket);
-        console.log(packet);
-        $.ajax({
-            type: 'POST',
-            url: '/message',
-            data: packet,
-        });
+        if (newMessage != '') {
+            const GossipPacket = {
+                Simple: {
+                    OriginalName: '',
+                    RelayPeerAddr: '',
+                    Contents: newMessage,
+                }
+            };
+            const packet = JSON.stringify(GossipPacket);
+            console.log(packet);
+            $.ajax({
+                type: 'POST',
+                url: '/message',
+                data: packet,
+            });
+        }
         $('#newMessage').val('');
+        enableSendMessageBtn();
     }
 
     function getNodes() {
@@ -89,6 +94,7 @@ $( document ).ready(function() {
             });
         }
         $('#newNode').val('');
+        enableNewNodeBtn();
     }
 
     function getId() {
@@ -127,5 +133,21 @@ $( document ).ready(function() {
             .replace(/</g, '&lt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
+    }
+
+    function enableSendMessageBtn() {
+        if ($('#newMessage').val() == '') {
+            $('#sendMessage').prop('disabled', true);
+        } else {
+            $('#sendMessage').prop('disabled', false);
+        }
+    }
+
+    function enableNewNodeBtn() {
+        if (isValidIPWithPort($('#newNode').val())) {
+            $('#addNode').prop('disabled', false);
+        } else {
+            $('#addNode').prop('disabled', true);
+        }
     }
 });

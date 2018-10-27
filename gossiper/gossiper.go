@@ -22,6 +22,7 @@ type Gossiper struct {
 	Vc StatusPacket
 	channelsListening map[string]chan *PeerStatus
 	mutex *sync.Mutex
+	routingTable RoutingTable
 }
 
 func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple bool) *Gossiper {
@@ -43,6 +44,7 @@ func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple b
 		Vc: *NewStatusPacket(name),
 		channelsListening:  make(map[string]chan *PeerStatus),
 		mutex: &sync.Mutex{},
+		routingTable: *NewRoutingTable(),
 	}
 }
 

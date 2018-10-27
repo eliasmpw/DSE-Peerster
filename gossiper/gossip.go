@@ -45,6 +45,9 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 			addPeerToList(gsspr, sourceAddr.String())
 			ok := gsspr.Vc.Update(packetReceived.Rumor.Origin, packetReceived.Rumor.ID)
 			if ok {
+				if packetReceived.Rumor.Origin != gsspr.Name && sourceAddr.String() != gsspr.addressStr {
+					gsspr.routingTable.RegisterNextHop(packetReceived.Rumor.Origin, sourceAddr.String())
+				}
 				gsspr.addToAllMessagesList(*packetReceived.Rumor)
 				logRumorMessage(*packetReceived, sourceAddr.String())
 				logPeers(gsspr)
