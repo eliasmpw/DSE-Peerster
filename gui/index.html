@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Peerster GUI Client</title>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/javascript"></script>
+    <script src="js/popper.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+            <h3 id="title" class="text-center text-primary">
+                Peerster GUI Client
+            </h3>
+            </div>
+            <div class="row">
+            <h5 id="idBox" class="text-center text-primary">
+                Id Box
+                <div> Your Peer ID:
+                    <input id="peerId" disabled/>
+                </div>
+            </h5>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="chatBox" class="col-md-8">
+            <div class="row">
+                <h5 class="text-center text-primary">
+                    Chat Box
+                </h5>
+            </div>
+            <div class="row">
+                <textarea id="messages" disabled>
+                </textarea>
+            </div>
+            <div class="row">
+                <input id="newMessage" placeholder="Enter a new message..."/>
+                <button id="sendMessage" type="button" class="btn btn-success">
+                    Send
+                </button>
+            </div>
+        </div>
+        <div id="nodeBox" class="col-md-4">
+            <div class="row">
+                <h5 class="text-center text-primary">
+                    Node Box
+                </h5>
+            </div>
+            <div class="row">
+                <textarea id="nodes" disabled>
+                </textarea>
+            </div>
+            <div class="row">
+                <input id="newNode" placeholder="Enter a new node..."/>
+                <button id="addNode" type="button" class="btn btn-success">
+                    Add
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

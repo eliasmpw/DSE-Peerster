@@ -1,0 +1,28 @@
+#messages,
+#nodes {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+#idBox,
+#chatBox,
+#nodeBox {
+    border: black solid 1px;
+    padding: 10px 25px;
+}
+
+#title,
+#idBox {
+    margin: auto;
+}
+
+#newMessage,
+#newNode {
+    width: auto;
+}
+
+#newMessage {
+    width: 50%;
+}
