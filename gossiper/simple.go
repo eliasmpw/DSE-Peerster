@@ -18,7 +18,10 @@ func onSimpleMessageReceived(gsspr *Gossiper, message []byte,	sourceAddr *net.UD
 			packetReceived.Simple.OriginalName = gsspr.Name
 			packetReceived.Simple.RelayPeerAddr = gsspr.addressStr
 			if peer != gsspr.addressStr {
-				gsspr.SendPacket(peer, packetReceived)
+				gsspr.sendGossipQueue <- &QueuedMessage{
+					packet: packetReceived,
+					destination: peer,
+				}
 			}
 		}
 	} else {
@@ -30,7 +33,10 @@ func onSimpleMessageReceived(gsspr *Gossiper, message []byte,	sourceAddr *net.UD
 			if peer == sourceAddr.String() {
 				found = true
 			} else {
-				gsspr.SendPacket(peer, packetReceived)
+				gsspr.sendGossipQueue <- &QueuedMessage{
+					packet: packetReceived,
+					destination: peer,
+				}
 			}
 		}
 		if !found {

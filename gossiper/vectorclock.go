@@ -71,7 +71,7 @@ func (sp *StatusPacket) Update(name string, id uint32) bool{
 	sp.mutex.Lock()
 	for index, status := range sp.Want {
 		if status.Identifier == name {
-			sp.Want[index].NextID += 1
+			sp.Want[index].NextID++;
 			sp.mutex.Unlock()
 			return true
 		}
@@ -117,9 +117,12 @@ func CompareVectorClocks(gsspr *Gossiper, sourceAddr string, status StatusPacket
 	}
 
 	if isBehind {
-		gsspr.SendPacket(sourceAddr, GossipPacket{
-			Status: copy,
-		})
+		gsspr.sendGossipQueue <- &QueuedMessage{
+			packet: GossipPacket{
+				Status: copy,
+			},
+			destination: sourceAddr,
+		}
 	}
 
 	for i := 0; i < gsspr.Vc.Length(); i++ {

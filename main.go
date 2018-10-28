@@ -21,6 +21,7 @@ func main() {
 		"Name of the gossiper")
 	peers := flag.String("peers", "", "Comma separated list of peers of the form ip:port")
 	simple := flag.Bool("simple", false, "Run gossiper in simple broadcast mode")
+	rTimer := flag.Int("rtimer", 0, "Route rumors sending period in seconds, 0 to disable sending of route roumors (default 0)")
 	flag.Parse()
 	var peersSlice []string
 	if *peers == "" {
@@ -30,6 +31,6 @@ func main() {
 	}
 
 	// Start gossiper
-	myGossiper = gossiper.NewGossiper(*uiPort, *gossipAddr, *name, peersSlice, *simple)
+	myGossiper = gossiper.NewGossiper(*uiPort, *gossipAddr, *name, peersSlice, *simple, *rTimer)
     myGossiper.Serve()
 }

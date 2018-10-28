@@ -25,3 +25,9 @@ type GossipPacket struct {
 	Rumor *RumorMessage
 	Status *StatusPacket
 }
+
+// QueuedMessage
+type QueuedMessage struct {
+	packet GossipPacket
+	destination string
+}

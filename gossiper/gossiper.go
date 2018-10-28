@@ -23,9 +23,11 @@ type Gossiper struct {
 	channelsListening map[string]chan *PeerStatus
 	mutex *sync.Mutex
 	routingTable RoutingTable
+	routeRumorTimer int
+	sendGossipQueue chan *QueuedMessage
 }
 
-func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple bool) *Gossiper {
+func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple bool, rTimer int) *Gossiper {
 	udpAddr, err := net.ResolveUDPAddr("udp4", addressStr)
 	common.CheckError(err)
 	udpConn, err := net.ListenUDP("udp4", udpAddr)
@@ -45,6 +47,8 @@ func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple b
 		channelsListening:  make(map[string]chan *PeerStatus),
 		mutex: &sync.Mutex{},
 		routingTable: *NewRoutingTable(),
+		routeRumorTimer: rTimer,
+		sendGossipQueue: make(chan *QueuedMessage),
 	}
 }
 
@@ -57,11 +61,13 @@ func (gsspr *Gossiper) Serve() {
 		gsspr.StartListeningPeersSimple(wait)
 		wait.Wait()
 	} else {
-		wait.Add(4)
+		wait.Add(6)
 		gsspr.StartListeningClient(wait)
 		gsspr.StartListeningGossip(wait)
-		gsspr.StartAntiEntropy(wait)
+		gsspr.StartGossipSender(wait)
+		gsspr.StartRouteRumoring(wait)
 		gsspr.StartServingGUI(wait)
+		gsspr.StartAntiEntropy(wait)
 		wait.Wait()
 	}
 }
@@ -130,7 +136,10 @@ func (gsspr *Gossiper) StartAntiEntropy(wait sync.WaitGroup) {
 				newPackage := GossipPacket{
 					Status: gsspr.Vc.MakeCopy(),
 				}
-				gsspr.SendPacket(randomPeer, newPackage)
+				gsspr.sendGossipQueue <- &QueuedMessage{
+					packet: newPackage,
+					destination: randomPeer,
+				}
 			}
 		}
 	}()
@@ -142,15 +151,6 @@ func (gsspr *Gossiper) StartServingGUI(wait sync.WaitGroup) {
 	http.Handle("/", router)
 
 	http.ListenAndServe(":" + gsspr.uiPort, router)
-}
-
-func (gsspr *Gossiper) SendPacket(destination string, message GossipPacket) {
-	// Send gossip packet to destination
-	content, err := protobuf.Encode(&message)
-	common.CheckError(err)
-	addressToSend, err := net.ResolveUDPAddr("udp4", destination)
-	common.CheckError(err)
-	gsspr.conn.WriteToUDP(content, addressToSend)
 }
 
 func (gsspr *Gossiper) addToAllMessagesList(packetReceived RumorMessage) {
@@ -170,4 +170,56 @@ func (gsspr *Gossiper) FindFromAllMessages(origin string, id uint32) *RumorMessa
 		}
 	}
 	return nil
+}
+
+func (gsspr *Gossiper) StartRouteRumoring(wait sync.WaitGroup) {
+	go func() {
+		defer wait.Done()
+		if gsspr.routeRumorTimer != 0 {
+			for _, peer := range gsspr.peersList {
+				newPackage := GossipPacket{
+					Rumor: &RumorMessage{
+						Origin: gsspr.Name,
+						ID:     gsspr.Vc.GetNextId(gsspr.Name),
+						Text:   "",
+					},
+				}
+				if peer != gsspr.addressStr {
+					RumorMonger(gsspr, peer, newPackage)
+				}
+			}
+			ticker := time.NewTicker(time.Duration(gsspr.routeRumorTimer) * time.Second)
+			defer ticker.Stop()
+			for range ticker.C {
+				randomPeer := GetRandomPeer(gsspr, "")
+				if randomPeer != "" {
+					newPackage := GossipPacket{
+						Rumor: &RumorMessage{
+							Origin: gsspr.Name,
+							ID:     gsspr.Vc.GetNextId(gsspr.Name),
+							Text:   "",
+						},
+					}
+					RumorMonger(gsspr, randomPeer, newPackage)
+				}
+			}
+		}
+	}()
+}
+
+func (gsspr *Gossiper) StartGossipSender(wait sync.WaitGroup) {
+	go func() {
+		defer wait.Done()
+		for qMessage := range gsspr.sendGossipQueue {
+			packet := qMessage.packet
+			destination := qMessage.destination
+
+			// Send gossip packet to destination
+			content, err := protobuf.Encode(&packet)
+			common.CheckError(err)
+			addressToSend, err := net.ResolveUDPAddr("udp4", destination)
+			common.CheckError(err)
+			gsspr.conn.WriteToUDP(content, addressToSend)
+		}
+	}()
 }

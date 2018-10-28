@@ -48,13 +48,18 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 				if packetReceived.Rumor.Origin != gsspr.Name && sourceAddr.String() != gsspr.addressStr {
 					gsspr.routingTable.RegisterNextHop(packetReceived.Rumor.Origin, sourceAddr.String())
 				}
-				gsspr.addToAllMessagesList(*packetReceived.Rumor)
-				logRumorMessage(*packetReceived, sourceAddr.String())
-				logPeers(gsspr)
+				if packetReceived.Rumor.Text != "" {
+					gsspr.addToAllMessagesList(*packetReceived.Rumor)
+					logRumorMessage(*packetReceived, sourceAddr.String())
+					logPeers(gsspr)
+				}
 				newPackage := GossipPacket{
 					Status: gsspr.Vc.MakeCopy(),
 				}
-				gsspr.SendPacket(sourceAddr.String(), newPackage)
+				gsspr.sendGossipQueue <- &QueuedMessage{
+					packet: newPackage,
+					destination: sourceAddr.String(),
+				}
 			}
 		}
 		if packetReceived.Status != nil {
@@ -95,7 +100,10 @@ func GetRandomPeer(gsspr *Gossiper, ignore string) string {
 
 func RumorMonger(gsspr *Gossiper, destPeer string, packet GossipPacket) {
 	// Start mongering with a peer
-	gsspr.SendPacket(destPeer, packet)
+	gsspr.sendGossipQueue <- &QueuedMessage{
+		packet: packet,
+		destination: destPeer,
+	}
 	logMongering(destPeer)
 	channelId := generateChannelListenId(destPeer, packet.Rumor.Origin, packet.Rumor.ID + 1)
 	channelListen := make(chan *PeerStatus)
