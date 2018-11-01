@@ -77,7 +77,7 @@ func newNodeHandler(writer http.ResponseWriter, request *http.Request) {
 }
 
 func messagesHandler(writer http.ResponseWriter, request *http.Request) {
-	response, err := json.Marshal(myGossiper.allMessages)
+	response, err := json.Marshal(myGossiper.allRumorMessages)
 	common.CheckError(err)
 	writer.Header().Set("Content-Type", "application/json")
 	writer.Write(response)

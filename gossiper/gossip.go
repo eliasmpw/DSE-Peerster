@@ -18,24 +18,35 @@ func onMessageReceived(gsspr *Gossiper, message []byte, sourceAddr *net.UDPAddr,
 
 func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *net.UDPAddr, isClient bool) {
 	if isClient {
-		if packetReceived.Simple == nil {
-			return
-		}
-		newPackage := GossipPacket{
-			Rumor: &RumorMessage{
-				Origin: gsspr.Name,
-				ID:     gsspr.Vc.GetNextId(gsspr.Name),
-				Text:   packetReceived.Simple.Contents,
-			},
-		}
-		ok := gsspr.Vc.Update(newPackage.Rumor.Origin, newPackage.Rumor.ID)
-		if ok {
-			gsspr.addToAllMessagesList(*newPackage.Rumor)
-			logClientMessage(*packetReceived)
-			randomPeer := GetRandomPeer(gsspr, "")
-			if randomPeer != "" {
-				RumorMonger(gsspr, randomPeer, newPackage)
+		if packetReceived.Simple != nil {
+			newPackage := GossipPacket{
+				Rumor: &RumorMessage{
+					Origin: gsspr.Name,
+					ID:     gsspr.Vc.GetNextId(gsspr.Name),
+					Text:   packetReceived.Simple.Contents,
+				},
 			}
+			ok := gsspr.Vc.Update(newPackage.Rumor.Origin, newPackage.Rumor.ID)
+			if ok {
+				gsspr.addToAllRumorMessagesList(*newPackage.Rumor)
+				logClientMessage(*packetReceived)
+				randomPeer := GetRandomPeer(gsspr, "")
+				if randomPeer != "" {
+					RumorMonger(gsspr, randomPeer, newPackage)
+				}
+			}
+		}
+		if packetReceived.Private != nil {
+			newPackage := GossipPacket{
+				Private: &PrivateMessage{
+					Origin: gsspr.Name,
+					ID: 0,
+					Text: packetReceived.Private.Text,
+					Dest: packetReceived.Private.Dest,
+					HopLimit: packetReceived.Private.HopLimit,
+				},
+			}
+			RoutePrivateMessage(gsspr, newPackage)
 		}
 	} else {
 		if packetReceived.Rumor == nil && packetReceived.Status == nil {
@@ -49,7 +60,7 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 					gsspr.routingTable.RegisterNextHop(packetReceived.Rumor.Origin, sourceAddr.String())
 				}
 				if packetReceived.Rumor.Text != "" {
-					gsspr.addToAllMessagesList(*packetReceived.Rumor)
+					gsspr.addToAllRumorMessagesList(*packetReceived.Rumor)
 					logRumorMessage(*packetReceived, sourceAddr.String())
 					logPeers(gsspr)
 				}
@@ -81,6 +92,14 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 			}
 
 			CompareVectorClocks(gsspr, sourceAddr.String(), *packetReceived.Status)
+		}
+		if packetReceived.Private != nil {
+			if packetReceived.Private.Dest == gsspr.Name {
+				logPrivateMessage(*packetReceived)
+				gsspr.addToAllPrivateMessagesList(*packetReceived.Private)
+			} else {
+				RoutePrivateMessage(gsspr, *packetReceived)
+			}
 		}
 	}
 }
@@ -176,3 +195,13 @@ func addPeerToList(gsspr *Gossiper, addr string) bool {
 	return false
 }
 
+func RoutePrivateMessage(gsspr *Gossiper, packet GossipPacket) {
+	packet.Private.HopLimit--
+	nextHop := gsspr.routingTable.GetAddress(packet.Private.Dest)
+	if packet.Private.HopLimit > 0 && nextHop != ""{
+		gsspr.sendGossipQueue <- &QueuedMessage{
+			packet: packet,
+			destination: nextHop,
+		}
+	}
+}

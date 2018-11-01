@@ -18,7 +18,8 @@ type Gossiper struct {
 	addressStr string
 	isSimple bool
 	peersList []string
-	allMessages []RumorMessage
+	allPrivateMessages []PrivateMessage
+	allRumorMessages []RumorMessage
 	Vc StatusPacket
 	channelsListening map[string]chan *PeerStatus
 	mutex *sync.Mutex
@@ -42,7 +43,8 @@ func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple b
 		addressStr: addressStr,
 		isSimple: isSimple,
 		peersList: peersList,
-		allMessages: []RumorMessage{},
+		allPrivateMessages: []PrivateMessage{},
+		allRumorMessages: []RumorMessage{},
 		Vc: *NewStatusPacket(name),
 		channelsListening:  make(map[string]chan *PeerStatus),
 		mutex: &sync.Mutex{},
@@ -153,18 +155,30 @@ func (gsspr *Gossiper) StartServingGUI(wait sync.WaitGroup) {
 	http.ListenAndServe(":" + gsspr.uiPort, router)
 }
 
-func (gsspr *Gossiper) addToAllMessagesList(packetReceived RumorMessage) {
+func (gsspr *Gossiper) addToAllRumorMessagesList(packetReceived RumorMessage) {
 	// Store rumor in the list
 	messageToSave := RumorMessage{
 		Origin: packetReceived.Origin,
 		ID:     packetReceived.ID,
 		Text:   packetReceived.Text,
 	}
-	gsspr.allMessages = append(gsspr.allMessages, messageToSave)
+	gsspr.allRumorMessages = append(gsspr.allRumorMessages, messageToSave)
 }
 
-func (gsspr *Gossiper) FindFromAllMessages(origin string, id uint32) *RumorMessage {
-	for _, rumor := range gsspr.allMessages {
+func (gsspr *Gossiper) addToAllPrivateMessagesList(packetReceived PrivateMessage) {
+	// Store private message in the list
+	messageToSave := PrivateMessage{
+		Origin: packetReceived.Origin,
+		ID: packetReceived.ID,
+		Text: packetReceived.Text,
+		Dest: packetReceived.Dest,
+		HopLimit: packetReceived.HopLimit,
+	}
+	gsspr.allPrivateMessages = append(gsspr.allPrivateMessages, messageToSave)
+}
+
+func (gsspr *Gossiper) FindFromAllRumorMessages(origin string, id uint32) *RumorMessage {
+	for _, rumor := range gsspr.allRumorMessages {
 		if rumor.Origin == origin && rumor.ID == id {
 			return &rumor
 		}

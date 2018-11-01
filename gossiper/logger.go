@@ -60,3 +60,9 @@ func logAntiEntropy(peerAddr string) {
 func logRoutingTableUpdate(peerName string, peerAddr string) {
 	fmt.Printf("DSDV %s %s\n", peerName, peerAddr)
 }
+
+func logPrivateMessage(packetReceived GossipPacket) {
+	fmt.Printf("PRIVATE origin %s hop-limit %d contents %s\n",
+		packetReceived.Private.Origin, packetReceived.Private.HopLimit,
+		packetReceived.Private.Text)
+}

@@ -131,7 +131,7 @@ func CompareVectorClocks(gsspr *Gossiper, sourceAddr string, status StatusPacket
 		theirState := status.GetNextId(auxStatus.Identifier)
 
 		if myState > theirState {
-			rumorToSend := gsspr.FindFromAllMessages(auxStatus.Identifier, theirState)
+			rumorToSend := gsspr.FindFromAllRumorMessages(auxStatus.Identifier, theirState)
 			if rumorToSend != nil {
 				newPackage := GossipPacket{
 					Rumor: rumorToSend,

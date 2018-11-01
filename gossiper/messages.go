@@ -13,10 +13,17 @@ type RumorMessage struct {
 	Text string
 }
 
-// Status structs
 type PeerStatus struct {
 	Identifier string
 	NextID uint32
+}
+
+type PrivateMessage struct {
+	Origin string
+	ID uint32
+	Text string
+	Dest string
+	HopLimit uint32
 }
 
 // Gossip packet
@@ -24,6 +31,7 @@ type GossipPacket struct {
 	Simple *SimpleMessage
 	Rumor *RumorMessage
 	Status *StatusPacket
+	Private *PrivateMessage
 }
 
 // QueuedMessage
