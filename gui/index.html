@@ -40,29 +40,71 @@
                 <textarea id="messages" disabled>
                 </textarea>
             </div>
-            <div class="row">
+            <div class="row justify-content-end">
                 <input id="newMessage" placeholder="Enter a new message..."/>
                 <button id="sendMessage" type="button" class="btn btn-success" disabled="disabled">
                     Send
                 </button>
             </div>
         </div>
-        <div id="nodeBox" class="col-md-4">
+        <div id="peerNodeBox" class="col-md-4">
             <div class="row">
                 <h5 class="text-center text-primary">
-                    Node Box
+                    Peer Node Box
                 </h5>
             </div>
             <div class="row">
-                <textarea id="nodes" disabled>
+                <textarea id="peerNodes" disabled>
                 </textarea>
             </div>
-            <div class="row">
-                <input id="newNode" placeholder="Enter a new node..."/>
-                <button id="addNode" type="button" class="btn btn-success" disabled="disabled">
+            <div class="row justify-content-end">
+                <input id="newPeerNode" placeholder="Enter a new peer node..."/>
+                <button id="addPeerNode" type="button" class="btn btn-success" disabled="disabled">
                     Add
                 </button>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="allNodesBox" class="col-md-6">
+            <div class="row">
+                <h5 class="text-center text-primary">
+                    All Known Nodes
+                    <span class="helpNodes">(Click on a node to send a private message)</span>
+                </h5>
+            </div>
+            <div class="row">
+                <div id="allNodes">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="privateMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titlePrivateMessages">Private Messages</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <textarea id="privateMessages" disabled>
+                            </textarea>
+                        </div>
+                        <div class="row justify-content-end">
+                            <input id="newPrivateMessage" placeholder="Enter a new message..."/>
+                            <button id="sendPrivateMessage" type="button" class="btn btn-success" disabled="disabled">
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chatBox" class="col-md-6">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
         </div>
     </div>
 </div>

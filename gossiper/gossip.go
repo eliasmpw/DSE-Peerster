@@ -42,16 +42,13 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 					Origin: gsspr.Name,
 					ID: 0,
 					Text: packetReceived.Private.Text,
-					Dest: packetReceived.Private.Dest,
+					Destination: packetReceived.Private.Destination,
 					HopLimit: packetReceived.Private.HopLimit,
 				},
 			}
 			RoutePrivateMessage(gsspr, newPackage)
 		}
 	} else {
-		if packetReceived.Rumor == nil && packetReceived.Status == nil {
-			return
-		}
 		if packetReceived.Rumor != nil {
 			addPeerToList(gsspr, sourceAddr.String())
 			ok := gsspr.Vc.Update(packetReceived.Rumor.Origin, packetReceived.Rumor.ID)
@@ -94,7 +91,7 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 			CompareVectorClocks(gsspr, sourceAddr.String(), *packetReceived.Status)
 		}
 		if packetReceived.Private != nil {
-			if packetReceived.Private.Dest == gsspr.Name {
+			if packetReceived.Private.Destination == gsspr.Name {
 				logPrivateMessage(*packetReceived)
 				gsspr.addToAllPrivateMessagesList(*packetReceived.Private)
 			} else {
@@ -197,7 +194,7 @@ func addPeerToList(gsspr *Gossiper, addr string) bool {
 
 func RoutePrivateMessage(gsspr *Gossiper, packet GossipPacket) {
 	packet.Private.HopLimit--
-	nextHop := gsspr.routingTable.GetAddress(packet.Private.Dest)
+	nextHop := gsspr.routingTable.GetAddress(packet.Private.Destination)
 	if packet.Private.HopLimit > 0 && nextHop != ""{
 		gsspr.sendGossipQueue <- &QueuedMessage{
 			packet: packet,

@@ -1,17 +1,28 @@
-$( document ).ready(function() {
+$(document).ready(function () {
     getId();
-    // Update data with 1 second ticks
-    setInterval(function() {
+    getMessages();
+    getPeerNodes();
+    getAllNodes();
+    // Update data with 1 or 2 seconds ticks
+    setInterval(function () {
         getMessages();
     }, 1000);
-    setInterval(function() {
-        getNodes();
-    }, 1000);
+    setInterval(function () {
+        getPeerNodes();
+    }, 2000);
+    setInterval(function () {
+        getAllNodes();
+    }, 2000);
 
     $('#sendMessage').click(postMessage);
-    $('#addNode').click(postNode);
+    $('#addPeerNode').click(postPeerNode);
     $('#newMessage').keyup(enableSendMessageBtn);
-    $('#newNode').keyup(enableNewNodeBtn);
+    $('#newPeerNode').keyup(enableNewPeerNodeBtn);
+    $('#privateMessageModal').on('show.bs.modal', onModalOpened);
+
+    let selectedPrivateName;
+    let selectedPrivateAddress;
+    let privateMessageInterval;
 
     function getMessages() {
         let messagesElement = $('#messages');
@@ -19,8 +30,7 @@ $( document ).ready(function() {
             type: 'GET',
             url: '/message',
             data: '',
-            success: function(response)
-            {
+            success: function (response) {
                 if (response) {
                     const oldValue = messagesElement.text();
                     messagesElement.text('');
@@ -58,18 +68,17 @@ $( document ).ready(function() {
         enableSendMessageBtn();
     }
 
-    function getNodes() {
-        let nodesElement = $('#nodes');
+    function getPeerNodes() {
+        let nodesElement = $('#peerNodes');
         $.ajax({
             type: 'GET',
             url: '/node',
             data: '',
-            success: function(response)
-            {
+            success: function (response) {
                 if (response) {
                     const oldValue = nodesElement.text();
                     nodesElement.text('');
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         nodesElement.append(sanitizeString(value) + '\n');
                     });
                     if (oldValue !== nodesElement.text()) {
@@ -80,21 +89,21 @@ $( document ).ready(function() {
         });
     }
 
-    function postNode() {
-        const newNode = $('#newNode').val();
-        if (isValidIPWithPort(newNode)) {
+    function postPeerNode() {
+        const newPeerNode = $('#newPeerNode').val();
+        if (isValidIPWithPort(newPeerNode)) {
             const GossipPacket = {
-                Node: newNode
+                Node: newPeerNode
             };
             const packet = JSON.stringify(GossipPacket);
             $.ajax({
                 type: 'POST',
                 url: '/node',
-                data: newNode,
+                data: newPeerNode,
             });
         }
-        $('#newNode').val('');
-        enableNewNodeBtn();
+        $('#newPeerNode').val('');
+        enableNewPeerNodeBtn();
     }
 
     function getId() {
@@ -103,8 +112,7 @@ $( document ).ready(function() {
             type: 'GET',
             url: '/id',
             data: '',
-            success: function(response)
-            {
+            success: function (response) {
                 if (response) {
                     idElement.val(response);
                 }
@@ -143,11 +151,64 @@ $( document ).ready(function() {
         }
     }
 
-    function enableNewNodeBtn() {
-        if (isValidIPWithPort($('#newNode').val())) {
-            $('#addNode').prop('disabled', false);
+    function enableNewPeerNodeBtn() {
+        if (isValidIPWithPort($('#newPeerNode').val())) {
+            $('#addPeerNode').prop('disabled', false);
         } else {
-            $('#addNode').prop('disabled', true);
+            $('#addPeerNode').prop('disabled', true);
         }
+    }
+
+    function getAllNodes() {
+        let nodesElement = $('#allNodes');
+        $.ajax({
+            type: 'GET',
+            url: '/allNodes',
+            data: '',
+            success: function (response) {
+                if (response) {
+                    for (let knownNode in response) {
+                        nodesElement.html('<div class="knownNode" ' +
+                            'data-toggle="modal" data-target="#privateMessageModal" ' +
+                            'data-name="' + knownNode + '" ' +
+                            'data-address="' + response[knownNode] + '">' + knownNode + '</div>');
+                    }
+                }
+            }
+        });
+    }
+
+    function getPrivateMessages() {
+        let messagesElement = $('#privateMessages');
+        $.ajax({
+            type: 'GET',
+            url: '/privateMessages',
+            data: '',
+            success: function (response) {
+                if (response) {
+                    console.log(response);
+                    console.log(selectedPrivateAddress);
+                    console.log(selectedPrivateName);
+                    // const oldValue = messagesElement.text();
+                    // messagesElement.text('');
+                    // $.each(response, function (key, value) {
+                    //     messagesElement.append(sanitizeString(value.Origin) + ': ' +
+                    //         sanitizeString(value.Text) + '\n');
+                    // });
+                    // if (oldValue !== messagesElement.text()) {
+                    //     messagesElement.scrollTop(messagesElement.prop('scrollHeight'));
+                    // }
+                }
+            }
+        });
+    }
+
+    function onModalOpened(event) {
+        selectedPrivateName = event.relatedTarget.dataset.name;
+        selectedPrivateAddress = event.relatedTarget.dataset.address;
+        getPrivateMessages();
+        privateMessageInterval = setInterval(function () {
+            getPrivateMessages();
+        }, 1000);
     }
 });

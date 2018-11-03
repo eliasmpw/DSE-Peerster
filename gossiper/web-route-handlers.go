@@ -24,37 +24,11 @@ func createRouteHandlers(gsspr *Gossiper) *mux.Router {
 	r.HandleFunc("/message", messagesHandler).Methods("GET")
 	r.HandleFunc("/node", nodesHandler).Methods("GET")
 	r.HandleFunc("/id", idHandler).Methods("GET")
+	r.HandleFunc("/allNodes", allNodesHandler).Methods("GET")
+	r.HandleFunc("/privateMessages", privateMessagesHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 
 	return r
-}
-
-func mainHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "index.html")
-}
-
-func bootstrapCssHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "gui/css/bootstrap.min.css")
-}
-
-func styleCssHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "gui/css/style.css")
-}
-
-func bootstrapJsHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "gui/js/bootstrap.min.js")
-}
-
-func jqueryMinHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "gui/js/jquery.min.js")
-}
-
-func popperMinHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "gui/js/popper.min.js")
-}
-
-func scriptJsHandler(writer http.ResponseWriter, request *http.Request) {
-	http.ServeFile(writer, request, "gui/js/script.js")
 }
 
 func newMessageHandler(writer http.ResponseWriter, request *http.Request) {
@@ -92,6 +66,20 @@ func nodesHandler(writer http.ResponseWriter, request *http.Request) {
 
 func idHandler(writer http.ResponseWriter, request *http.Request) {
 	response, err := json.Marshal(myGossiper.Name)
+	common.CheckError(err)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(response)
+}
+
+func allNodesHandler(writer http.ResponseWriter, request *http.Request) {
+	response, err := json.Marshal(myGossiper.routingTable.table)
+	common.CheckError(err)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(response)
+}
+
+func privateMessagesHandler(writer http.ResponseWriter, request *http.Request) {
+	response, err := json.Marshal(myGossiper.allPrivateMessages)
 	common.CheckError(err)
 	writer.Header().Set("Content-Type", "application/json")
 	writer.Write(response)

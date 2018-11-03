@@ -30,7 +30,7 @@ func main() {
 			Origin: "",
 			ID: 0,
 			Text: *msg,
-			Dest: *dest,
+			Destination: *dest,
 			HopLimit: 10,
 		}
 		packetToSend = gossiper.GossipPacket{

@@ -10,22 +10,22 @@ import (
 )
 
 type Gossiper struct {
-	address *net.UDPAddr
-	conn *net.UDPConn
-	Name string
-	uiPort string
-	uiConn *net.UDPConn
-	addressStr string
-	isSimple bool
-	peersList []string
+	address            *net.UDPAddr
+	conn               *net.UDPConn
+	Name               string
+	uiPort             string
+	uiConn             *net.UDPConn
+	addressStr         string
+	isSimple           bool
+	peersList          []string
 	allPrivateMessages []PrivateMessage
-	allRumorMessages []RumorMessage
-	Vc StatusPacket
-	channelsListening map[string]chan *PeerStatus
-	mutex *sync.Mutex
-	routingTable RoutingTable
-	routeRumorTimer int
-	sendGossipQueue chan *QueuedMessage
+	allRumorMessages   []RumorMessage
+	Vc                 StatusPacket
+	channelsListening  map[string]chan *PeerStatus
+	mutex              *sync.Mutex
+	routingTable       RoutingTable
+	routeRumorTimer    int
+	sendGossipQueue    chan *QueuedMessage
 }
 
 func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple bool, rTimer int) *Gossiper {
@@ -35,22 +35,22 @@ func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple b
 	common.CheckError(err)
 	uiPort, uiUdpConn := common.StartLocalConnection(uiPort)
 	return &Gossiper{
-		address: udpAddr,
-		conn: udpConn,
-		Name: name,
-		uiPort: uiPort,
-		uiConn: uiUdpConn,
-		addressStr: addressStr,
-		isSimple: isSimple,
-		peersList: peersList,
+		address:            udpAddr,
+		conn:               udpConn,
+		Name:               name,
+		uiPort:             uiPort,
+		uiConn:             uiUdpConn,
+		addressStr:         addressStr,
+		isSimple:           isSimple,
+		peersList:          peersList,
 		allPrivateMessages: []PrivateMessage{},
-		allRumorMessages: []RumorMessage{},
-		Vc: *NewStatusPacket(name),
+		allRumorMessages:   []RumorMessage{},
+		Vc:                 *NewStatusPacket(name),
 		channelsListening:  make(map[string]chan *PeerStatus),
-		mutex: &sync.Mutex{},
-		routingTable: *NewRoutingTable(),
-		routeRumorTimer: rTimer,
-		sendGossipQueue: make(chan *QueuedMessage),
+		mutex:              &sync.Mutex{},
+		routingTable:       *NewRoutingTable(),
+		routeRumorTimer:    rTimer,
+		sendGossipQueue:    make(chan *QueuedMessage),
 	}
 }
 
@@ -139,7 +139,7 @@ func (gsspr *Gossiper) StartAntiEntropy(wait sync.WaitGroup) {
 					Status: gsspr.Vc.MakeCopy(),
 				}
 				gsspr.sendGossipQueue <- &QueuedMessage{
-					packet: newPackage,
+					packet:      newPackage,
 					destination: randomPeer,
 				}
 			}
@@ -148,11 +148,13 @@ func (gsspr *Gossiper) StartAntiEntropy(wait sync.WaitGroup) {
 }
 
 func (gsspr *Gossiper) StartServingGUI(wait sync.WaitGroup) {
-	router := createRouteHandlers(gsspr)
+	go func() {
+		router := createRouteHandlers(gsspr)
 
-	http.Handle("/", router)
+		http.Handle("/", router)
 
-	http.ListenAndServe(":" + gsspr.uiPort, router)
+		http.ListenAndServe(":"+gsspr.uiPort, router)
+	}()
 }
 
 func (gsspr *Gossiper) addToAllRumorMessagesList(packetReceived RumorMessage) {
@@ -168,11 +170,11 @@ func (gsspr *Gossiper) addToAllRumorMessagesList(packetReceived RumorMessage) {
 func (gsspr *Gossiper) addToAllPrivateMessagesList(packetReceived PrivateMessage) {
 	// Store private message in the list
 	messageToSave := PrivateMessage{
-		Origin: packetReceived.Origin,
-		ID: packetReceived.ID,
-		Text: packetReceived.Text,
-		Dest: packetReceived.Dest,
-		HopLimit: packetReceived.HopLimit,
+		Origin:      packetReceived.Origin,
+		ID:          packetReceived.ID,
+		Text:        packetReceived.Text,
+		Destination: packetReceived.Destination,
+		HopLimit:    packetReceived.HopLimit,
 	}
 	gsspr.allPrivateMessages = append(gsspr.allPrivateMessages, messageToSave)
 }

@@ -22,7 +22,7 @@ type PrivateMessage struct {
 	Origin string
 	ID uint32
 	Text string
-	Dest string
+	Destination string
 	HopLimit uint32
 }
 
