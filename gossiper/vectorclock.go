@@ -5,7 +5,7 @@ import (
 )
 
 type StatusPacket struct {
-	Want []PeerStatus
+	Want  []PeerStatus
 	mutex *sync.Mutex
 }
 
@@ -14,10 +14,10 @@ func NewStatusPacket(name string) *StatusPacket {
 	// Register own clock
 	want = append(want, PeerStatus{
 		Identifier: name,
-		NextID: 1,
+		NextID:     1,
 	})
 	return &StatusPacket{
-		Want: want,
+		Want:  want,
 		mutex: &sync.Mutex{},
 	}
 }
@@ -29,7 +29,7 @@ func (sp *StatusPacket) Length() int {
 	return length
 }
 
-func (sp *StatusPacket) GetIndex(i int) PeerStatus{
+func (sp *StatusPacket) GetIndex(i int) PeerStatus {
 	defer sp.mutex.Unlock()
 	sp.mutex.Lock()
 	status := sp.Want[i]
@@ -64,7 +64,7 @@ func (sp *StatusPacket) Add(name string) {
 	}
 }
 
-func (sp *StatusPacket) Update(name string, id uint32) bool{
+func (sp *StatusPacket) Update(name string, id uint32) bool {
 	if id != sp.GetNextId(name) {
 		return false
 	}
@@ -91,7 +91,7 @@ func (sp *StatusPacket) MakeCopy() *StatusPacket {
 	copy(Copy, sp.Want)
 	sp.mutex.Unlock()
 	copyStatusPacket := StatusPacket{
-		Want: Copy,
+		Want:  Copy,
 		mutex: &sync.Mutex{},
 	}
 	return &copyStatusPacket

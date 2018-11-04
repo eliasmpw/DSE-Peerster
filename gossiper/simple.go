@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-func onSimpleMessageReceived(gsspr *Gossiper, message []byte,	sourceAddr *net.UDPAddr, isClient bool) {
+func onSimpleMessageReceived(gsspr *Gossiper, message []byte, sourceAddr *net.UDPAddr, isClient bool) {
 	var packetReceived = GossipPacket{}
 	protobuf.Decode(message, &packetReceived)
 	if packetReceived.Simple == nil {
@@ -19,7 +19,7 @@ func onSimpleMessageReceived(gsspr *Gossiper, message []byte,	sourceAddr *net.UD
 			packetReceived.Simple.RelayPeerAddr = gsspr.addressStr
 			if peer != gsspr.addressStr {
 				gsspr.sendGossipQueue <- &QueuedMessage{
-					packet: packetReceived,
+					packet:      packetReceived,
 					destination: peer,
 				}
 			}
@@ -34,7 +34,7 @@ func onSimpleMessageReceived(gsspr *Gossiper, message []byte,	sourceAddr *net.UD
 				found = true
 			} else {
 				gsspr.sendGossipQueue <- &QueuedMessage{
-					packet: packetReceived,
+					packet:      packetReceived,
 					destination: peer,
 				}
 			}

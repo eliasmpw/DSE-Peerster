@@ -16,9 +16,11 @@
       <change beforePath="$PROJECT_DIR$/Peerster.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Peerster.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/gossip.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/gossip.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/gossiper.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/gossiper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/messages.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/messages.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gossiper/simple.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/simple.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gossiper/vectorclock.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/vectorclock.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/web-route-handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/web-route-handlers.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/gui/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gui/index.html" afterDir="false" />
@@ -51,30 +53,30 @@
         <counts>
           <entry key="css" value="5" />
           <entry key="gitignore" value="1" />
-          <entry key="go" value="60" />
+          <entry key="go" value="62" />
           <entry key="html" value="4" />
           <entry key="js" value="4" />
           <entry key="md" value="1" />
           <entry key="out" value="86" />
-          <entry key="sh" value="7" />
+          <entry key="sh" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="5" />
-          <entry key="Go" value="60" />
+          <entry key="Go" value="62" />
           <entry key="HTML" value="4" />
           <entry key="JavaScript" value="4" />
-          <entry key="PLAIN_TEXT" value="95" />
+          <entry key="PLAIN_TEXT" value="96" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="659" />
           <entry key="gitignore" value="8" />
-          <entry key="go" value="18163" />
+          <entry key="go" value="18486" />
           <entry key="html" value="964" />
-          <entry key="js" value="2310" />
+          <entry key="js" value="3217" />
           <entry key="md" value="181" />
           <entry key="sh" value="47" />
         </counts>
@@ -82,9 +84,9 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="659" />
-          <entry key="Go" value="18163" />
+          <entry key="Go" value="18486" />
           <entry key="HTML" value="972" />
-          <entry key="JavaScript" value="2302" />
+          <entry key="JavaScript" value="3209" />
           <entry key="Markdown" value="181" />
           <entry key="PLAIN_TEXT" value="55" />
         </counts>
@@ -107,8 +109,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/web-route-handlers.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+                <state relative-caret-position="183">
+                  <caret line="106" column="31" selection-start-line="106" selection-start-column="31" selection-end-line="106" selection-end-column="31" />
                   <folding>
                     <element signature="e#18#143#0" expanded="true" />
                   </folding>
@@ -119,8 +121,11 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/routing.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+                <state relative-caret-position="175">
+                  <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+                  <folding>
+                    <element signature="e#18#36#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -128,17 +133,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1259">
-                  <caret line="132" column="27" selection-start-line="132" selection-start-column="27" selection-end-line="132" selection-end-column="27" />
+                <state relative-caret-position="175">
+                  <caret line="185" column="9" selection-start-line="185" selection-start-column="9" selection-end-line="185" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/gui/js/script.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3230">
-                  <caret line="190" column="53" selection-start-line="190" selection-start-column="53" selection-end-line="190" selection-end-column="53" />
+                <state relative-caret-position="107">
+                  <caret line="204" column="42" lean-forward="true" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
                 </state>
               </provider>
             </entry>
@@ -146,8 +151,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/common/common.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+                <state relative-caret-position="204">
+                  <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
@@ -155,20 +160,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="166">
-                  <caret line="50" selection-start-line="50" selection-end-line="50" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/gossiper/gossip.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="239">
-                  <caret line="92" column="35" selection-start-line="92" selection-start-column="35" selection-end-line="92" selection-end-column="35" />
-                  <folding>
-                    <element signature="e#18#135#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="180">
+                  <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
                 </state>
               </provider>
             </entry>
@@ -176,8 +169,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/vectorclock.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2142">
-                  <caret line="128" column="41" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
+                <state relative-caret-position="217">
+                  <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -187,10 +180,19 @@
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gossiper/messages.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="183">
+                  <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret line="195" column="43" selection-start-line="195" selection-start-column="43" selection-end-line="195" selection-end-column="43" />
+                <state relative-caret-position="171">
+                  <caret line="79" column="16" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
                 </state>
               </provider>
             </entry>
@@ -198,8 +200,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gui/css/style.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="578">
-                  <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+                <state relative-caret-position="183">
+                  <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
                 </state>
               </provider>
             </entry>
@@ -207,17 +209,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/main.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="476">
-                  <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/test_2_ring.sh">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="101" column="21" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="21" />
+                <state relative-caret-position="101">
+                  <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
                 </state>
               </provider>
             </entry>
@@ -225,17 +218,38 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/simple.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="25" column="9" selection-start-line="16" selection-start-column="8" selection-end-line="25" selection-end-column="9" />
+                <state relative-caret-position="251">
+                  <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/gui/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="221">
+                  <caret line="109" column="14" lean-forward="true" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gui/index.html">
+            <entry file="file://$PROJECT_DIR$/test_2_ring.sh">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+                <state relative-caret-position="119">
+                  <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="65" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gossiper/gossip.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="188">
+                  <caret line="101" column="13" selection-start-line="101" selection-start-column="13" selection-end-line="101" selection-end-column="13" />
+                  <folding>
+                    <element signature="e#18#135#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -257,23 +271,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>RumorMonger</find>
-      <find>getaddress</find>
-      <find>rumor</find>
-      <find>dest</find>
-      <find>routeRumorTimer</find>
-      <find>origin</find>
-      <find>hoplimit</find>
-      <find>id</find>
-      <find>handlem</find>
-      <find>nodes</find>
-      <find>nodebox</find>
       <find>add</find>
       <find>click o</find>
       <find>node</find>
       <find>bootstrapCssHandler</find>
       <find>hand</find>
-      <find>handle</find>
       <find>antient</find>
       <find>StartAntiEntropy</find>
       <find>handlemes</find>
@@ -281,12 +283,24 @@
       <find>e</find>
       <find>flipped coin</find>
       <find>sync</find>
-      <find>antien</find>
       <find>antientropy</find>
-      <find>hey</find>
       <find>sync with</find>
       <find>check rumor</find>
-      <find>rumor</find>
+      <find>antien</find>
+      <find>find</find>
+      <find>rtim</find>
+      <find>value</find>
+      <find>postPeer</find>
+      <find>console.log</find>
+      <find>privatemessage</find>
+      <find>getId</find>
+      <find>handle</find>
+      <find>print</find>
+      <find>hey</find>
+      <find>RegisterNextHop</find>
+      <find>getid</find>
+      <find>RoutePrivateMessage</find>
+      <find>getaddress</find>
     </findStrings>
     <replaceStrings>
       <replace>structs.</replace>
@@ -320,25 +334,25 @@
         <option value="$PROJECT_DIR$/gui/js/main.js" />
         <option value="$PROJECT_DIR$/gossiper/gui-routes.go" />
         <option value="$PROJECT_DIR$/gossiper/gui/index.html" />
-        <option value="$PROJECT_DIR$/common/common.go" />
         <option value="$PROJECT_DIR$/gossiper/route-handlers.go" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/common/logger.go" />
-        <option value="$PROJECT_DIR$/gossiper/routing.go" />
-        <option value="$PROJECT_DIR$/gossiper/simple.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/client/main.go" />
-        <option value="$PROJECT_DIR$/gossiper/vectorclock.go" />
         <option value="$PROJECT_DIR$/gossiper/logger.go" />
-        <option value="$PROJECT_DIR$/gossiper/messages.go" />
-        <option value="$PROJECT_DIR$/gui/index.html" />
-        <option value="$PROJECT_DIR$/gui/css/style.css" />
-        <option value="$PROJECT_DIR$/gui/js/script.js" />
-        <option value="$PROJECT_DIR$/gossiper/web-route-handlers.go" />
-        <option value="$PROJECT_DIR$/gossiper/gossip.go" />
-        <option value="$PROJECT_DIR$/gossiper/gossiper.go" />
         <option value="$PROJECT_DIR$/test_2_ring.sh" />
+        <option value="$PROJECT_DIR$/gossiper/gossiper.go" />
+        <option value="$PROJECT_DIR$/gossiper/web-route-handlers.go" />
+        <option value="$PROJECT_DIR$/gossiper/routing.go" />
+        <option value="$PROJECT_DIR$/gui/js/script.js" />
+        <option value="$PROJECT_DIR$/client/main.go" />
+        <option value="$PROJECT_DIR$/common/common.go" />
+        <option value="$PROJECT_DIR$/gossiper/gossip.go" />
+        <option value="$PROJECT_DIR$/gossiper/messages.go" />
+        <option value="$PROJECT_DIR$/gossiper/simple.go" />
+        <option value="$PROJECT_DIR$/gossiper/vectorclock.go" />
+        <option value="$PROJECT_DIR$/gui/css/style.css" />
+        <option value="$PROJECT_DIR$/gui/index.html" />
       </list>
     </option>
   </component>
@@ -486,7 +500,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8082192" visible="true" weight="0.1738255" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8082192" visible="true" weight="0.1738255" />
       <window_info id="Structure" order="1" sideWeight="0.19178082" side_tool="true" visible="true" weight="0.1738255" />
       <window_info id="Favorites" order="2" sideWeight="0.17480719" side_tool="true" weight="0.15771812" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -498,7 +512,7 @@
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.329429" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.48657718" visible="true" weight="0.35871157" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.48657718" visible="true" weight="0.35871157" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.51342285" side_tool="true" visible="true" weight="0.35871157" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -577,65 +591,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/messages.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/web-route-handlers.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="71" column="1" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
-          <folding>
-            <element signature="e#18#143#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/routing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3230">
-          <caret line="190" column="53" selection-start-line="190" selection-start-column="53" selection-end-line="190" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/common.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/vectorclock.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="128" column="41" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/C.out">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -650,39 +605,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/simple.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="25" column="9" selection-start-line="16" selection-start-column="8" selection-end-line="25" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/I.out">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/J.out">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="195" column="43" selection-start-line="195" selection-start-column="43" selection-end-line="195" selection-end-column="43" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/B.out">
       <provider selected="true" editor-type-id="text-editor">
@@ -698,20 +625,110 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test_2_ring.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="33" column="55" selection-start-line="33" selection-start-column="55" selection-end-line="33" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gossiper/gossip.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="92" column="35" selection-start-line="92" selection-start-column="35" selection-end-line="92" selection-end-column="35" />
+        <state relative-caret-position="188">
+          <caret line="101" column="13" selection-start-line="101" selection-start-column="13" selection-end-line="101" selection-end-column="13" />
           <folding>
             <element signature="e#18#135#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_2_ring.sh">
+    <entry file="file://$PROJECT_DIR$/common/common.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="185" column="9" selection-start-line="185" selection-start-column="9" selection-end-line="185" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/messages.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/routing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding>
+            <element signature="e#18#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/vectorclock.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/simple.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="101" column="21" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="21" />
+          <caret line="109" column="14" lean-forward="true" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/web-route-handlers.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="106" column="31" selection-start-line="106" selection-start-column="31" selection-end-line="106" selection-end-column="31" />
+          <folding>
+            <element signature="e#18#143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="204" column="42" lean-forward="true" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
         </state>
       </provider>
     </entry>

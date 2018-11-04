@@ -13,7 +13,7 @@ func StartLocalConnection(port string) (portString string, udpConn *net.UDPConn)
 	var err error
 	successful := false
 	for !successful {
-		udpAddr, err = net.ResolveUDPAddr("udp4", "127.0.0.1:" + port)
+		udpAddr, err = net.ResolveUDPAddr("udp4", "127.0.0.1:"+port)
 		CheckError(err)
 		udpConn, err = net.ListenUDP("udp4", udpAddr)
 		if err == nil {
@@ -35,5 +35,5 @@ func CheckError(e error) {
 }
 
 func FlipCoin() bool {
-	return rand.Int() % 2 == 1
+	return rand.Int()%2 == 1
 }

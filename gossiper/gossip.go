@@ -1,6 +1,7 @@
 package gossiper
 
 import (
+	"fmt"
 	"github.com/dedis/protobuf"
 	"github.com/eliasmpw/Peerster/common"
 	"math/rand"
@@ -37,15 +38,17 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 			}
 		}
 		if packetReceived.Private != nil {
+			fmt.Printf("packettttt %s to deliver to %s\n", packetReceived.Private.Text, packetReceived.Private.Destination)
 			newPackage := GossipPacket{
 				Private: &PrivateMessage{
-					Origin: gsspr.Name,
-					ID: 0,
-					Text: packetReceived.Private.Text,
+					Origin:      gsspr.Name,
+					ID:          0,
+					Text:        packetReceived.Private.Text,
 					Destination: packetReceived.Private.Destination,
-					HopLimit: packetReceived.Private.HopLimit,
+					HopLimit:    packetReceived.Private.HopLimit,
 				},
 			}
+			gsspr.addToAllPrivateMessagesList(*newPackage.Private)
 			RoutePrivateMessage(gsspr, newPackage)
 		}
 	} else {
@@ -56,8 +59,8 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 				if packetReceived.Rumor.Origin != gsspr.Name && sourceAddr.String() != gsspr.addressStr {
 					gsspr.routingTable.RegisterNextHop(packetReceived.Rumor.Origin, sourceAddr.String())
 				}
+				gsspr.addToAllRumorMessagesList(*packetReceived.Rumor)
 				if packetReceived.Rumor.Text != "" {
-					gsspr.addToAllRumorMessagesList(*packetReceived.Rumor)
 					logRumorMessage(*packetReceived, sourceAddr.String())
 					logPeers(gsspr)
 				}
@@ -65,7 +68,7 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 					Status: gsspr.Vc.MakeCopy(),
 				}
 				gsspr.sendGossipQueue <- &QueuedMessage{
-					packet: newPackage,
+					packet:      newPackage,
 					destination: sourceAddr.String(),
 				}
 			}
@@ -117,11 +120,11 @@ func GetRandomPeer(gsspr *Gossiper, ignore string) string {
 func RumorMonger(gsspr *Gossiper, destPeer string, packet GossipPacket) {
 	// Start mongering with a peer
 	gsspr.sendGossipQueue <- &QueuedMessage{
-		packet: packet,
+		packet:      packet,
 		destination: destPeer,
 	}
 	logMongering(destPeer)
-	channelId := generateChannelListenId(destPeer, packet.Rumor.Origin, packet.Rumor.ID + 1)
+	channelId := generateChannelListenId(destPeer, packet.Rumor.Origin, packet.Rumor.ID+1)
 	channelListen := make(chan *PeerStatus)
 	gsspr.mutex.Lock()
 	_, ok := gsspr.channelsListening[channelId]
@@ -138,36 +141,36 @@ func RumorMonger(gsspr *Gossiper, destPeer string, packet GossipPacket) {
 	go func() {
 		timer := time.NewTimer(1000 * time.Millisecond)
 		select {
-			case <- channelListen:
-				timer.Stop()
-				gsspr.mutex.Lock()
-				close(channelListen)
-				gsspr.channelsListening[channelId] = nil
-				delete(gsspr.channelsListening, channelId)
-				gsspr.mutex.Unlock()
-				if common.FlipCoin() {
-					randomPeer := GetRandomPeer(gsspr, destPeer)
-					if randomPeer != "" {
-						LogFlippedCoin(randomPeer)
-						go RumorMonger(gsspr, randomPeer, packet)
-					}
+		case <-channelListen:
+			timer.Stop()
+			gsspr.mutex.Lock()
+			close(channelListen)
+			gsspr.channelsListening[channelId] = nil
+			delete(gsspr.channelsListening, channelId)
+			gsspr.mutex.Unlock()
+			if common.FlipCoin() {
+				randomPeer := GetRandomPeer(gsspr, destPeer)
+				if randomPeer != "" {
+					LogFlippedCoin(randomPeer)
+					go RumorMonger(gsspr, randomPeer, packet)
 				}
-			    return
-			case <- timer.C:
-				timer.Stop()
-				gsspr.mutex.Lock()
-				close(channelListen)
-				gsspr.channelsListening[channelId] = nil
-				delete(gsspr.channelsListening, channelId)
-				gsspr.mutex.Unlock()
-				if common.FlipCoin() {
-					randomPeer := GetRandomPeer(gsspr, destPeer)
-					if randomPeer != "" {
-						LogFlippedCoin(randomPeer)
-						go RumorMonger(gsspr, randomPeer, packet)
-					}
+			}
+			return
+		case <-timer.C:
+			timer.Stop()
+			gsspr.mutex.Lock()
+			close(channelListen)
+			gsspr.channelsListening[channelId] = nil
+			delete(gsspr.channelsListening, channelId)
+			gsspr.mutex.Unlock()
+			if common.FlipCoin() {
+				randomPeer := GetRandomPeer(gsspr, destPeer)
+				if randomPeer != "" {
+					LogFlippedCoin(randomPeer)
+					go RumorMonger(gsspr, randomPeer, packet)
 				}
-				return
+			}
+			return
 		}
 	}()
 	return
@@ -195,9 +198,10 @@ func addPeerToList(gsspr *Gossiper, addr string) bool {
 func RoutePrivateMessage(gsspr *Gossiper, packet GossipPacket) {
 	packet.Private.HopLimit--
 	nextHop := gsspr.routingTable.GetAddress(packet.Private.Destination)
-	if packet.Private.HopLimit > 0 && nextHop != ""{
+
+	if packet.Private.HopLimit > 0 && nextHop != "" {
 		gsspr.sendGossipQueue <- &QueuedMessage{
-			packet: packet,
+			packet:      packet,
 			destination: nextHop,
 		}
 	}

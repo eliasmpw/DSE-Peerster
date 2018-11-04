@@ -24,8 +24,10 @@ func createRouteHandlers(gsspr *Gossiper) *mux.Router {
 	r.HandleFunc("/message", messagesHandler).Methods("GET")
 	r.HandleFunc("/node", nodesHandler).Methods("GET")
 	r.HandleFunc("/id", idHandler).Methods("GET")
+	r.HandleFunc("/ipAddress", ipAddressHandler).Methods("GET")
 	r.HandleFunc("/allNodes", allNodesHandler).Methods("GET")
-	r.HandleFunc("/privateMessages", privateMessagesHandler).Methods("GET")
+	r.HandleFunc("/privateMessage", privateMessageHandler).Methods("GET")
+	r.HandleFunc("/privateMessage", newPrivateMessageHandler).Methods("POST")
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 
 	return r
@@ -51,7 +53,13 @@ func newNodeHandler(writer http.ResponseWriter, request *http.Request) {
 }
 
 func messagesHandler(writer http.ResponseWriter, request *http.Request) {
-	response, err := json.Marshal(myGossiper.allRumorMessages)
+	filteredMessages := []RumorMessage{}
+	for _, message := range myGossiper.allRumorMessages {
+		if message.Text != "" {
+			filteredMessages = append(filteredMessages, message)
+		}
+	}
+	response, err := json.Marshal(filteredMessages)
 	common.CheckError(err)
 	writer.Header().Set("Content-Type", "application/json")
 	writer.Write(response)
@@ -71,6 +79,13 @@ func idHandler(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(response)
 }
 
+func ipAddressHandler(writer http.ResponseWriter, request *http.Request) {
+	response, err := json.Marshal(myGossiper.addressStr)
+	common.CheckError(err)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(response)
+}
+
 func allNodesHandler(writer http.ResponseWriter, request *http.Request) {
 	response, err := json.Marshal(myGossiper.routingTable.table)
 	common.CheckError(err)
@@ -78,9 +93,20 @@ func allNodesHandler(writer http.ResponseWriter, request *http.Request) {
 	writer.Write(response)
 }
 
-func privateMessagesHandler(writer http.ResponseWriter, request *http.Request) {
+func privateMessageHandler(writer http.ResponseWriter, request *http.Request) {
 	response, err := json.Marshal(myGossiper.allPrivateMessages)
 	common.CheckError(err)
 	writer.Header().Set("Content-Type", "application/json")
 	writer.Write(response)
+}
+
+func newPrivateMessageHandler(writer http.ResponseWriter, request *http.Request) {
+	rawContent, _ := ioutil.ReadAll(request.Body)
+	var packetReceived GossipPacket
+	json.Unmarshal(rawContent, &packetReceived)
+	if &packetReceived == nil {
+		return
+	}
+
+	handleMessage(myGossiper, &packetReceived, myGossiper.address, true)
 }

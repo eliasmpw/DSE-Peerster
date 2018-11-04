@@ -1,5 +1,6 @@
 $(document).ready(function () {
     getId();
+    getIpAddress();
     getMessages();
     getPeerNodes();
     getAllNodes();
@@ -16,10 +17,15 @@ $(document).ready(function () {
 
     $('#sendMessage').click(postMessage);
     $('#addPeerNode').click(postPeerNode);
+    $('#sendPrivateMessage').click(postPrivateMessage);
     $('#newMessage').keyup(enableSendMessageBtn);
     $('#newPeerNode').keyup(enableNewPeerNodeBtn);
+    $('#newPrivateMessage').keyup(enableSendPrivateMessageBtn);
     $('#privateMessageModal').on('show.bs.modal', onModalOpened);
+    $('#privateMessageModal').on('hide.bs.modal', onModalClosed);
 
+    let idName;
+    let ipAddress;
     let selectedPrivateName;
     let selectedPrivateAddress;
     let privateMessageInterval;
@@ -48,7 +54,7 @@ $(document).ready(function () {
 
     function postMessage() {
         const newMessage = $('#newMessage').val();
-        if (newMessage != '') {
+        if (newMessage !== '') {
             const GossipPacket = {
                 Simple: {
                     OriginalName: '',
@@ -57,7 +63,7 @@ $(document).ready(function () {
                 }
             };
             const packet = JSON.stringify(GossipPacket);
-            console.log(packet);
+            console.log("POST /message: ", packet);
             $.ajax({
                 type: 'POST',
                 url: '/message',
@@ -114,7 +120,21 @@ $(document).ready(function () {
             data: '',
             success: function (response) {
                 if (response) {
+                    idName = response;
                     idElement.val(response);
+                }
+            }
+        });
+    }
+
+    function getIpAddress() {
+        $.ajax({
+            type: 'GET',
+            url: '/ipAddress',
+            data: '',
+            success: function (response) {
+                if (response) {
+                    ipAddress = response;
                 }
             }
         });
@@ -144,19 +164,15 @@ $(document).ready(function () {
     }
 
     function enableSendMessageBtn() {
-        if ($('#newMessage').val() == '') {
-            $('#sendMessage').prop('disabled', true);
-        } else {
-            $('#sendMessage').prop('disabled', false);
-        }
+        $('#sendMessage').prop('disabled', $('#newMessage').val() == '');
     }
 
     function enableNewPeerNodeBtn() {
-        if (isValidIPWithPort($('#newPeerNode').val())) {
-            $('#addPeerNode').prop('disabled', false);
-        } else {
-            $('#addPeerNode').prop('disabled', true);
-        }
+        $('#addPeerNode').prop('disabled', !isValidIPWithPort($('#newPeerNode').val()));
+    }
+
+    function enableSendPrivateMessageBtn() {
+        $('#sendPrivateMessage').prop('disabled', $('#newPrivateMessage').val() == '');
     }
 
     function getAllNodes() {
@@ -167,12 +183,14 @@ $(document).ready(function () {
             data: '',
             success: function (response) {
                 if (response) {
+                    newContent = "";
                     for (let knownNode in response) {
-                        nodesElement.html('<div class="knownNode" ' +
+                        newContent = newContent + '<div class="knownNode" ' +
                             'data-toggle="modal" data-target="#privateMessageModal" ' +
                             'data-name="' + knownNode + '" ' +
-                            'data-address="' + response[knownNode] + '">' + knownNode + '</div>');
+                            'data-address="' + response[knownNode] + '">' + knownNode + '</div>';
                     }
+                    nodesElement.html(newContent);
                 }
             }
         });
@@ -182,25 +200,50 @@ $(document).ready(function () {
         let messagesElement = $('#privateMessages');
         $.ajax({
             type: 'GET',
-            url: '/privateMessages',
+            url: '/privateMessage',
             data: '',
             success: function (response) {
                 if (response) {
-                    console.log(response);
-                    console.log(selectedPrivateAddress);
-                    console.log(selectedPrivateName);
-                    // const oldValue = messagesElement.text();
-                    // messagesElement.text('');
-                    // $.each(response, function (key, value) {
-                    //     messagesElement.append(sanitizeString(value.Origin) + ': ' +
-                    //         sanitizeString(value.Text) + '\n');
-                    // });
-                    // if (oldValue !== messagesElement.text()) {
-                    //     messagesElement.scrollTop(messagesElement.prop('scrollHeight'));
-                    // }
+                    const oldValue = messagesElement.text();
+                    response = response.filter(message => {
+                        return message.Origin === idName && message.Destination === selectedPrivateName ||
+                            message.Origin === selectedPrivateName && message.Destination === idName;
+                    });
+                    messagesElement.text('');
+                    $.each(response, function (key, value) {
+                        messagesElement.append(sanitizeString(value.Origin) + ': ' +
+                            sanitizeString(value.Text) + '\n');
+                    });
+                    if (oldValue !== messagesElement.text()) {
+                        messagesElement.scrollTop(messagesElement.prop('scrollHeight'));
+                    }
                 }
             }
         });
+    }
+
+    function postPrivateMessage() {
+        const newMessage = $('#newPrivateMessage').val();
+        if (newMessage !== '') {
+            const GossipPacket = {
+                Private: {
+                    Origin: '',
+                    ID: 0,
+                    Text: newMessage,
+                    Destination: selectedPrivateName,
+                    HopLimit: 10
+                }
+            };
+            const packet = JSON.stringify(GossipPacket);
+            console.log("POST /privateMessage: ", packet);
+            $.ajax({
+                type: 'POST',
+                url: '/privateMessage',
+                data: packet,
+            });
+        }
+        $('#newPrivateMessage').val('');
+        enableSendPrivateMessageBtn();
     }
 
     function onModalOpened(event) {
@@ -210,5 +253,9 @@ $(document).ready(function () {
         privateMessageInterval = setInterval(function () {
             getPrivateMessages();
         }, 1000);
+    }
+
+    function onModalClosed(event) {
+        clearInterval(privateMessageInterval);
     }
 });
