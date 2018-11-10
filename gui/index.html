@@ -103,10 +103,22 @@
                 </div>
             </div>
         </div>
-        <div id="chatBox" class="col-md-6">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-                    data-whatever="@getbootstrap">Open modal for @getbootstrap
-            </button>
+        <div id="filesBox" class="col-md-6">
+            <div id="shareFileBox">
+                <h5>Share File</h5>
+                <input name="file" type="file" id="selectedFile"/>
+                <button type="button" id="shareFile" class="btn btn-success">Share File</button>
+            </div>
+            <div id="downloadFileBox">
+                <h5>Download File</h5>
+                <input name="filename" type="text" id="dl_filename" placeholder="filename" />
+                <input name="hash" type="text" id="filehash" placeholder="hex hash" />
+                <div id="reachable-nodes-container2">
+                    <select id="reachable-nodes-select2">
+                    </select>
+                    <button type="button" id="download_file" onclick="downloadFile()">Download</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

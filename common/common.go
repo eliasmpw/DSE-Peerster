@@ -8,6 +8,7 @@ import (
 
 const BUFFER_SIZE = 65535
 
+// Create a UDP connection
 func StartLocalConnection(port string) (portString string, udpConn *net.UDPConn) {
 	var udpAddr *net.UDPAddr
 	var err error
@@ -27,6 +28,7 @@ func StartLocalConnection(port string) (portString string, udpConn *net.UDPConn)
 	return port, udpConn
 }
 
+// Check Error
 func CheckError(e error) {
 	if e != nil {
 		//log.Fatal(e)

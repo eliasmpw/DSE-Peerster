@@ -11,9 +11,16 @@
 #idBox,
 #chatBox,
 #peerNodeBox,
-#allNodesBox {
+#allNodesBox,
+#filesBox,
+#shareFileBox,
+#downloadFileBox {
     border: black solid 1px;
     padding: 10px 25px;
+}
+
+#filesBox {
+    padding: 0;
 }
 
 #title,
@@ -46,3 +53,4 @@
 #privateMessageModal .modal-body {
     margin: 0 10px;
 }
+

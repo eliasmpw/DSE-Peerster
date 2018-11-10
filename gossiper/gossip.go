@@ -1,11 +1,14 @@
 package gossiper
 
 import (
-	"fmt"
+	"crypto/sha256"
 	"github.com/dedis/protobuf"
 	"github.com/eliasmpw/Peerster/common"
+	"io/ioutil"
 	"math/rand"
 	"net"
+	"os"
+	"path/filepath"
 	"strconv"
 	"time"
 )
@@ -14,12 +17,61 @@ func onMessageReceived(gsspr *Gossiper, message []byte, sourceAddr *net.UDPAddr,
 	// Decode message
 	var packetReceived = GossipPacket{}
 	protobuf.Decode(message, &packetReceived)
-	handleMessage(gsspr, &packetReceived, sourceAddr, isClient);
+	if isClient {
+		handleMessageClient(gsspr, &packetReceived, sourceAddr);
+	} else {
+		handleMessage(gsspr, &packetReceived, sourceAddr);
+	}
 }
 
-func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *net.UDPAddr, isClient bool) {
-	if isClient {
-		if packetReceived.Simple != nil {
+func handleMessageClient(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *net.UDPAddr) {
+	// Handle a message received from the client
+	if packetReceived.Simple != nil {
+		if packetReceived.Simple.OriginalName == "file" && packetReceived.Simple.RelayPeerAddr == "file" {
+			// If it has values of "file" in OriginalName and RelayPeerAddress,
+			// handle it as a file index/share request
+			fileName := filepath.Base(packetReceived.Simple.Contents)
+			absPath, err := filepath.Abs("")
+			common.CheckError(err)
+			path := absPath +
+				string(os.PathSeparator) +
+				gsspr.sharedFilesDir +
+				fileName
+			// Read the file
+			fileContent, err := ioutil.ReadFile(path)
+			common.CheckError(err)
+			fileSize := uint(len(fileContent))
+			// Divide the file into chunks
+			chunks := SplitToChunks(fileContent, gsspr.chunkSize)
+			// Create hashes for chunks
+			hashes := CreateChunkHashes(chunks)
+			// Create MetaFile of all hashes
+			var metaFile []byte
+			for _, hash := range hashes {
+				metaFile = append(metaFile, hash...)
+			}
+			// Create hash of metafile
+			h := sha256.New()
+			h.Write(metaFile)
+			hashValue := h.Sum(nil)
+			// Add to the MetaData List
+			fmdAux := FileMetaData{
+				Origin:    gsspr.Name,
+				Name:      fileName,
+				Size:      fileSize,
+				MetaFile:  metaFile,
+				HashValue: hashValue,
+			}
+			gsspr.metaDataList.Add(fmdAux)
+
+			// Store the file in the disk
+			downloadDir := absPath + string(os.PathSeparator) + gsspr.sharedFilesDir
+			// Store the file
+			WriteFileOnDisk(fileContent, downloadDir, fileName)
+			// Store the chunks
+			WriteChunksOnDisk(*chunks, gsspr.chunkFilesDir, fileName)
+		} else {
+			// Else handle as a gossip message
 			newPackage := GossipPacket{
 				Rumor: &RumorMessage{
 					Origin: gsspr.Name,
@@ -37,69 +89,72 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 				}
 			}
 		}
-		if packetReceived.Private != nil {
-			fmt.Printf("packettttt %s to deliver to %s\n", packetReceived.Private.Text, packetReceived.Private.Destination)
-			newPackage := GossipPacket{
-				Private: &PrivateMessage{
-					Origin:      gsspr.Name,
-					ID:          0,
-					Text:        packetReceived.Private.Text,
-					Destination: packetReceived.Private.Destination,
-					HopLimit:    packetReceived.Private.HopLimit,
-				},
-			}
-			gsspr.addToAllPrivateMessagesList(*newPackage.Private)
-			RoutePrivateMessage(gsspr, newPackage)
+	}
+	if packetReceived.Private != nil {
+		// Handle private message
+		newPackage := GossipPacket{
+			Private: &PrivateMessage{
+				Origin:      gsspr.Name,
+				ID:          0,
+				Text:        packetReceived.Private.Text,
+				Destination: packetReceived.Private.Destination,
+				HopLimit:    packetReceived.Private.HopLimit,
+			},
 		}
-	} else {
-		if packetReceived.Rumor != nil {
-			addPeerToList(gsspr, sourceAddr.String())
-			ok := gsspr.Vc.Update(packetReceived.Rumor.Origin, packetReceived.Rumor.ID)
-			if ok {
-				if packetReceived.Rumor.Origin != gsspr.Name && sourceAddr.String() != gsspr.addressStr {
-					gsspr.routingTable.RegisterNextHop(packetReceived.Rumor.Origin, sourceAddr.String())
-				}
-				gsspr.addToAllRumorMessagesList(*packetReceived.Rumor)
-				if packetReceived.Rumor.Text != "" {
-					logRumorMessage(*packetReceived, sourceAddr.String())
-					logPeers(gsspr)
-				}
-				newPackage := GossipPacket{
-					Status: gsspr.Vc.MakeCopy(),
-				}
-				gsspr.sendGossipQueue <- &QueuedMessage{
-					packet:      newPackage,
-					destination: sourceAddr.String(),
-				}
-			}
-		}
-		if packetReceived.Status != nil {
-			addPeerToList(gsspr, sourceAddr.String())
-			logStatusMessage(*packetReceived, sourceAddr.String())
-			logPeers(gsspr)
-			for _, status := range packetReceived.Status.Want {
-				// Check if there are status that we were waiting for
-				channelListenId := generateChannelListenId(sourceAddr.String(), status.Identifier, status.NextID)
-				gsspr.mutex.Lock()
-				channel, exists := gsspr.channelsListening[channelListenId]
-				if exists && channel != nil {
-					select {
-					case channel <- &status:
-					default:
-					}
-				}
-				gsspr.mutex.Unlock()
-			}
+		gsspr.addToAllPrivateMessagesList(*newPackage.Private)
+		RoutePrivateMessage(gsspr, newPackage)
+	}
+}
 
-			CompareVectorClocks(gsspr, sourceAddr.String(), *packetReceived.Status)
-		}
-		if packetReceived.Private != nil {
-			if packetReceived.Private.Destination == gsspr.Name {
-				logPrivateMessage(*packetReceived)
-				gsspr.addToAllPrivateMessagesList(*packetReceived.Private)
-			} else {
-				RoutePrivateMessage(gsspr, *packetReceived)
+func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *net.UDPAddr) {
+	// Handle a message received from a peer
+	if packetReceived.Rumor != nil {
+		addPeerToList(gsspr, sourceAddr.String())
+		ok := gsspr.Vc.Update(packetReceived.Rumor.Origin, packetReceived.Rumor.ID)
+		if ok {
+			if packetReceived.Rumor.Origin != gsspr.Name && sourceAddr.String() != gsspr.addressStr {
+				gsspr.routingTable.RegisterNextHop(packetReceived.Rumor.Origin, sourceAddr.String())
 			}
+			gsspr.addToAllRumorMessagesList(*packetReceived.Rumor)
+			if packetReceived.Rumor.Text != "" {
+				logRumorMessage(*packetReceived, sourceAddr.String())
+				logPeers(gsspr)
+			}
+			newPackage := GossipPacket{
+				Status: gsspr.Vc.MakeCopy(),
+			}
+			gsspr.sendGossipQueue <- &QueuedMessage{
+				packet:      newPackage,
+				destination: sourceAddr.String(),
+			}
+		}
+	}
+	if packetReceived.Status != nil {
+		addPeerToList(gsspr, sourceAddr.String())
+		logStatusMessage(*packetReceived, sourceAddr.String())
+		logPeers(gsspr)
+		for _, status := range packetReceived.Status.Want {
+			// Check if there are status that we were waiting for
+			channelListenId := generateChannelListenId(sourceAddr.String(), status.Identifier, status.NextID)
+			gsspr.mutex.Lock()
+			channel, exists := gsspr.channelsListening[channelListenId]
+			if exists && channel != nil {
+				select {
+				case channel <- &status:
+				default:
+				}
+			}
+			gsspr.mutex.Unlock()
+		}
+
+		CompareVectorClocks(gsspr, sourceAddr.String(), *packetReceived.Status)
+	}
+	if packetReceived.Private != nil {
+		if packetReceived.Private.Destination == gsspr.Name {
+			logPrivateMessage(*packetReceived)
+			gsspr.addToAllPrivateMessagesList(*packetReceived.Private)
+		} else {
+			RoutePrivateMessage(gsspr, *packetReceived)
 		}
 	}
 }

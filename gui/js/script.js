@@ -23,6 +23,7 @@ $(document).ready(function () {
     $('#newPrivateMessage').keyup(enableSendPrivateMessageBtn);
     $('#privateMessageModal').on('show.bs.modal', onModalOpened);
     $('#privateMessageModal').on('hide.bs.modal', onModalClosed);
+    $('#shareFile').click(shareFileBtn);
 
     let idName;
     let ipAddress;
@@ -257,5 +258,18 @@ $(document).ready(function () {
 
     function onModalClosed(event) {
         clearInterval(privateMessageInterval);
+    }
+
+    function shareFileBtn() {
+        const filePath = $('#selectedFile').val();
+        console.log($('#selectedFile'));
+        if (filePath) {
+            $.ajax({
+                type: 'POST',
+                url: '/shareFile',
+                data: filePath,
+            });
+        }
+        // $('#selectedFile').val('');
     }
 });

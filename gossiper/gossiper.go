@@ -26,9 +26,25 @@ type Gossiper struct {
 	routingTable       RoutingTable
 	routeRumorTimer    int
 	sendGossipQueue    chan *QueuedMessage
+	sharedFilesDir     string
+	chunkFilesDir      string
+	hashSize           uint
+	chunkSize          uint
+	metaDataList	MetaDataList
 }
 
-func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple bool, rTimer int) *Gossiper {
+func NewGossiper(
+	uiPort,
+	addressStr,
+	name string,
+	peersList []string,
+	isSimple bool,
+	rTimer int,
+	sharedFilesDir string,
+	chunkFilesDir string,
+	hashSize uint,
+	chunkSize uint,
+) *Gossiper {
 	udpAddr, err := net.ResolveUDPAddr("udp4", addressStr)
 	common.CheckError(err)
 	udpConn, err := net.ListenUDP("udp4", udpAddr)
@@ -51,6 +67,11 @@ func NewGossiper(uiPort, addressStr, name string, peersList []string, isSimple b
 		routingTable:       *NewRoutingTable(),
 		routeRumorTimer:    rTimer,
 		sendGossipQueue:    make(chan *QueuedMessage),
+		sharedFilesDir:     sharedFilesDir,
+		chunkFilesDir:      chunkFilesDir,
+		hashSize:           hashSize,
+		chunkSize:          chunkSize,
+		metaDataList: NewMetaDataList(),
 	}
 }
 

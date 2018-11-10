@@ -4,4 +4,6 @@ data/
 __pycache__
 .ipynb_checkpoints
 .vscode/
+*.iml
 *.out
+*.exe

@@ -13,10 +13,31 @@ func main() {
 	uiPort := flag.String("UIPort", "8080", "Port for the UI client");
 	msg := flag.String("msg", "", "Message to be sent");
 	dest := flag.String("dest", "", "Destination for the private message")
+	file := flag.String("file", "", "File to be indexed by the gossiper")
+	request := flag.String("request", "", "Request a chunk or metafile of this hash")
 	flag.Parse()
+	// Create packet to send
 	var packetToSend = gossiper.GossipPacket{}
 
-	if *dest == "" {
+	if *msg == "" {
+		// If there is no message
+		if *file != "" && *dest != "" && *request != "" {
+			// If it is a download request
+
+		} else if *file != "" {
+			// If it is a index file request
+			// Use Existing SimpleMessage struct with original name file
+			simpleWithFilePath := gossiper.SimpleMessage{
+				OriginalName:  "file",
+				RelayPeerAddr: "file",
+				Contents:      *file,
+			}
+			packetToSend = gossiper.GossipPacket{
+				Simple: &simpleWithFilePath,
+			}
+		}
+	} else if *dest == "" {
+		// If it is a gossip
 		simpleToSend := gossiper.SimpleMessage{
 			OriginalName:  "",
 			RelayPeerAddr: "",
@@ -26,6 +47,7 @@ func main() {
 			Simple: &simpleToSend,
 		}
 	} else {
+		// If it is a private message (has destination)
 		privateToSend := gossiper.PrivateMessage{
 			Origin:      "",
 			ID:          0,
