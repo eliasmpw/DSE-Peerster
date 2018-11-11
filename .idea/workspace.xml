@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af797812-599a-479f-92db-a991b7474fe1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gossiper/file-downloads.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gossiper/process-file-message.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A.out" beforeDir="false" afterPath="$PROJECT_DIR$/A.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/B.out" beforeDir="false" afterPath="$PROJECT_DIR$/B.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C.out" beforeDir="false" afterPath="$PROJECT_DIR$/C.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/D.out" beforeDir="false" afterPath="$PROJECT_DIR$/D.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E.out" beforeDir="false" afterPath="$PROJECT_DIR$/E.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/F.out" beforeDir="false" afterPath="$PROJECT_DIR$/F.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/G.out" beforeDir="false" afterPath="$PROJECT_DIR$/G.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/H.out" beforeDir="false" afterPath="$PROJECT_DIR$/H.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/I.out" beforeDir="false" afterPath="$PROJECT_DIR$/I.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/J.out" beforeDir="false" afterPath="$PROJECT_DIR$/J.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Peerster.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Peerster.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/gossip.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/gossip.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/gossiper.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/gossiper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/logger.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/messages.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/messages.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/metafiles.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/metafiles.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/web-route-handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/web-route-handlers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/gui/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gui/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_2_ring.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test_2_ring.sh" afterDir="false" />
-    </list>
+    <list default="true" id="af797812-599a-479f-92db-a991b7474fe1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +134,7 @@
             <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="325">
-                  <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+                  <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
                 </state>
               </provider>
             </entry>
@@ -1054,7 +1024,7 @@
     <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
-          <caret line="79" column="1" lean-forward="true" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+          <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
         </state>
       </provider>
     </entry>
