@@ -57,7 +57,7 @@ func logAntiEntropy(peerAddr string) {
 	fmt.Printf("ANTIENTROPY TO %s\n", peerAddr)
 }
 
-func logRoutingTableUpdate(peerName string, peerAddr string) {
+func logRoutingTableUpdate(peerName, peerAddr string) {
 	fmt.Printf("DSDV %s %s\n", peerName, peerAddr)
 }
 
@@ -65,4 +65,20 @@ func logPrivateMessage(packetReceived GossipPacket) {
 	fmt.Printf("PRIVATE origin %s hop-limit %d contents %s\n",
 		packetReceived.Private.Origin, packetReceived.Private.HopLimit,
 		packetReceived.Private.Text)
+}
+
+func logFileShared(fileName string, hash string) {
+	fmt.Printf("SHARING file %s with hash %s\n", fileName, hash)
+}
+
+func logDownloadingMetaFile(fileName, peerName string) {
+	fmt.Printf("DOWNLOADING metafile of %s from %s\n", fileName, peerName)
+}
+
+func logDownloadingChunk(fileName string, chunkIndex int, peerName string) {
+	fmt.Printf("DOWNLOADING %s chunk %d from %s\n", fileName, chunkIndex, peerName)
+}
+
+func logFileReconstructed(fileName string) {
+	fmt.Printf("RECONSTRUCTED file %s\n", fileName)
 }

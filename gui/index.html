@@ -106,17 +106,23 @@
         <div id="filesBox" class="col-md-6">
             <div id="shareFileBox">
                 <h5>Share File</h5>
-                <input name="file" type="file" id="selectedFile"/>
+                <input type="file" id="selectedFile"/>
                 <button type="button" id="shareFile" class="btn btn-success">Share File</button>
             </div>
             <div id="downloadFileBox">
-                <h5>Download File</h5>
-                <input name="filename" type="text" id="dl_filename" placeholder="filename" />
-                <input name="hash" type="text" id="filehash" placeholder="hex hash" />
-                <div id="reachable-nodes-container2">
-                    <select id="reachable-nodes-select2">
-                    </select>
-                    <button type="button" id="download_file" onclick="downloadFile()">Download</button>
+                <div class="row">
+                    <h5>Download File</h5>
+                    <div id="downloadInfo">Download in progress...</div>
+                </div>
+                <div class="row">
+                    <input type="text" id="downloadFileName" placeholder="File Name"/>
+                </div>
+                <div class="row">
+                    <input type="text" id="downloadHash" placeholder="Hash"/>
+                </div>
+                <div class="row">
+                    <input type="text" id="downloadNode" placeholder="Node"/>
+                    <button type="button" id="downloadFileButton" class="btn btn-success">Download File</button>
                 </div>
             </div>
         </div>

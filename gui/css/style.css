@@ -54,3 +54,12 @@
     margin: 0 10px;
 }
 
+#downloadInfo {
+    margin-left: 10px;
+    color: orange;
+    display:none;
+}
+
+#downloadFileButton {
+    margin-left: 10px;
+}

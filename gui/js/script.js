@@ -24,6 +24,7 @@ $(document).ready(function () {
     $('#privateMessageModal').on('show.bs.modal', onModalOpened);
     $('#privateMessageModal').on('hide.bs.modal', onModalClosed);
     $('#shareFile').click(shareFileBtn);
+    $('#downloadFileButton').click(downloadFileBtn);
 
     let idName;
     let ipAddress;
@@ -262,7 +263,6 @@ $(document).ready(function () {
 
     function shareFileBtn() {
         const filePath = $('#selectedFile').val();
-        console.log($('#selectedFile'));
         if (filePath) {
             $.ajax({
                 type: 'POST',
@@ -270,6 +270,49 @@ $(document).ready(function () {
                 data: filePath,
             });
         }
-        // $('#selectedFile').val('');
+        $('#selectedFile').val('');
+    }
+
+    function downloadFileBtn() {
+        const fileName = $('#downloadFileName').val();
+        const hash = $('#downloadHash').val();
+        const node = $('#downloadNode').val();
+        if (fileName && hash && node) {
+            const GossipPacket = {
+                DataRequest: {
+                    Origin: '',
+                    Destination: node,
+                    HopLimit: 10,
+                    HashValue: encodeHex(hash),
+                    FileName: fileName
+                }
+            };
+            console.log(GossipPacket);
+            const packet = JSON.stringify(GossipPacket);
+            $('#downloadInfo').show();
+            $.ajax({
+                type: 'POST',
+                url: '/downloadFile',
+                data: packet,
+                success: function (data, text) {
+                    $('#downloadInfo').hide();
+                    alert("Download of " + fileName + " completed!");
+                },
+                error: function (request, status, error) {
+                    $('#downloadInfo').hide();
+                    alert("Error in download");
+                }
+            });
+        }
+        $('#downloadFileName').val('');
+        $('#downloadHash').val('');
+        $('#downloadNode').val('');
+    }
+
+    function encodeHex(myString) {
+        let bytes = [];
+        for (let i = 0; i < myString.length; i += 2)
+            bytes.push(parseInt(myString.substr(i, 2), 16));
+        return bytes;
     }
 });

@@ -1,12 +1,15 @@
 package main
 
 import (
+	"encoding/hex"
 	"flag"
 	"github.com/dedis/protobuf"
 	"github.com/eliasmpw/Peerster/common"
 	"github.com/eliasmpw/Peerster/gossiper"
 	"net"
 )
+
+const HOP_LIMIT = 10
 
 func main() {
 	// Load values passed via flags
@@ -23,6 +26,16 @@ func main() {
 		// If there is no message
 		if *file != "" && *dest != "" && *request != "" {
 			// If it is a download request
+			// Convert request hashValue to byte array
+			hashValue, err := hex.DecodeString(*request)
+			common.CheckError(err)
+			packetToSend.DataRequest = &gossiper.DataRequest{
+				Origin:      "",
+				Destination: *dest,
+				HopLimit:    HOP_LIMIT,
+				HashValue:   hashValue,
+				FileName:    *file,
+			}
 
 		} else if *file != "" {
 			// If it is a index file request
@@ -53,12 +66,11 @@ func main() {
 			ID:          0,
 			Text:        *msg,
 			Destination: *dest,
-			HopLimit:    10,
+			HopLimit:    HOP_LIMIT,
 		}
 		packetToSend = gossiper.GossipPacket{
 			Private: &privateToSend,
 		}
-
 	}
 
 	// Send packet

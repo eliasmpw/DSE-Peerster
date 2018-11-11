@@ -28,9 +28,14 @@ type Gossiper struct {
 	sendGossipQueue    chan *QueuedMessage
 	sharedFilesDir     string
 	chunkFilesDir      string
+	downloadedFilesDir string
+	hopLimit           uint
 	hashSize           uint
 	chunkSize          uint
-	metaDataList	MetaDataList
+	metaDataList       MetaDataList
+	filesListening     map[string]chan *DataReply
+	filesMutex         *sync.Mutex
+	fileDownloadsList  FileDownloadsList
 }
 
 func NewGossiper(
@@ -42,6 +47,8 @@ func NewGossiper(
 	rTimer int,
 	sharedFilesDir string,
 	chunkFilesDir string,
+	downloadedFilesDir string,
+	hopLimit uint,
 	hashSize uint,
 	chunkSize uint,
 ) *Gossiper {
@@ -69,9 +76,14 @@ func NewGossiper(
 		sendGossipQueue:    make(chan *QueuedMessage),
 		sharedFilesDir:     sharedFilesDir,
 		chunkFilesDir:      chunkFilesDir,
+		downloadedFilesDir: downloadedFilesDir,
+		hopLimit:           hopLimit,
 		hashSize:           hashSize,
 		chunkSize:          chunkSize,
-		metaDataList: NewMetaDataList(),
+		metaDataList:       NewMetaDataList(),
+		filesListening:     make(map[string]chan *DataReply),
+		filesMutex:         &sync.Mutex{},
+		fileDownloadsList:  *NewFileDownloadsList(),
 	}
 }
 
@@ -79,9 +91,10 @@ func (gsspr *Gossiper) Serve() {
 	// Start goroutines
 	var wait sync.WaitGroup
 	if gsspr.isSimple {
-		wait.Add(2)
+		wait.Add(3)
 		gsspr.StartListeningClientSimple(wait)
 		gsspr.StartListeningPeersSimple(wait)
+		gsspr.StartGossipSender(wait)
 		wait.Wait()
 	} else {
 		wait.Add(6)

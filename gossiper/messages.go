@@ -31,6 +31,7 @@ type DataRequest struct {
 	Destination string
 	HopLimit    uint32
 	HashValue   []byte
+	FileName    string
 }
 
 type DataReply struct {

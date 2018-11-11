@@ -2,6 +2,7 @@ package gossiper
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"github.com/dedis/protobuf"
 	"github.com/eliasmpw/Peerster/common"
 	"io/ioutil"
@@ -18,13 +19,13 @@ func onMessageReceived(gsspr *Gossiper, message []byte, sourceAddr *net.UDPAddr,
 	var packetReceived = GossipPacket{}
 	protobuf.Decode(message, &packetReceived)
 	if isClient {
-		handleMessageClient(gsspr, &packetReceived, sourceAddr);
+		handleClientMessage(gsspr, &packetReceived, sourceAddr);
 	} else {
 		handleMessage(gsspr, &packetReceived, sourceAddr);
 	}
 }
 
-func handleMessageClient(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *net.UDPAddr) {
+func handleClientMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *net.UDPAddr) {
 	// Handle a message received from the client
 	if packetReceived.Simple != nil {
 		if packetReceived.Simple.OriginalName == "file" && packetReceived.Simple.RelayPeerAddr == "file" {
@@ -70,6 +71,7 @@ func handleMessageClient(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 			WriteFileOnDisk(fileContent, downloadDir, fileName)
 			// Store the chunks
 			WriteChunksOnDisk(*chunks, gsspr.chunkFilesDir, fileName)
+			logFileShared(fileName, hex.EncodeToString(hashValue))
 		} else {
 			// Else handle as a gossip message
 			newPackage := GossipPacket{
@@ -103,6 +105,17 @@ func handleMessageClient(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 		}
 		gsspr.addToAllPrivateMessagesList(*newPackage.Private)
 		RoutePrivateMessage(gsspr, newPackage)
+	}
+	if packetReceived.DataRequest != nil {
+		// Handle download request
+		newDataRequest := DataRequest{
+			Origin:      gsspr.Name,
+			Destination: packetReceived.DataRequest.Destination,
+			HopLimit:    packetReceived.DataRequest.HopLimit,
+			HashValue:   packetReceived.DataRequest.HashValue,
+			FileName:    packetReceived.DataRequest.FileName,
+		}
+		StartFileDownload(gsspr, newDataRequest)
 	}
 }
 
@@ -156,6 +169,14 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 		} else {
 			RoutePrivateMessage(gsspr, *packetReceived)
 		}
+	}
+	if packetReceived.DataRequest != nil {
+		// Handle data request
+		ProcessDataRequest(gsspr, *packetReceived.DataRequest, sourceAddr.String())
+	}
+	if packetReceived.DataReply != nil {
+		// Handle data reply
+		processDataReply(gsspr, *packetReceived.DataReply, sourceAddr.String())
 	}
 }
 

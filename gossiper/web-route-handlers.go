@@ -29,6 +29,7 @@ func createRouteHandlers(gsspr *Gossiper) *mux.Router {
 	r.HandleFunc("/privateMessage", privateMessageHandler).Methods("GET")
 	r.HandleFunc("/privateMessage", newPrivateMessageHandler).Methods("POST")
 	r.HandleFunc("/shareFile", shareFileHandler).Methods("POST")
+	r.HandleFunc("/downloadFile", downloadFileHandler).Methods("POST")
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 
 	return r
@@ -43,7 +44,7 @@ func newMessageHandler(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	handleMessageClient(myGossiper, &packetReceived, myGossiper.address)
+	handleClientMessage(myGossiper, &packetReceived, myGossiper.address)
 }
 
 func newNodeHandler(writer http.ResponseWriter, request *http.Request) {
@@ -111,18 +112,28 @@ func newPrivateMessageHandler(writer http.ResponseWriter, request *http.Request)
 		return
 	}
 
-	handleMessageClient(myGossiper, &packetReceived, myGossiper.address)
+	handleClientMessage(myGossiper, &packetReceived, myGossiper.address)
 }
 
 func shareFileHandler(writer http.ResponseWriter, request *http.Request) {
 	rawContent, _ := ioutil.ReadAll(request.Body)
 	request.Body.Close()
 
-	handleMessageClient(myGossiper, &GossipPacket{
+	handleClientMessage(myGossiper, &GossipPacket{
 		Simple: &SimpleMessage{
 			OriginalName:  "file",
 			RelayPeerAddr: "file",
 			Contents:      string(rawContent[:]),
 		},
 	}, myGossiper.address)
+}
+
+func downloadFileHandler(writer http.ResponseWriter, request *http.Request) {
+	rawContent, _ := ioutil.ReadAll(request.Body)
+	var packetReceived GossipPacket
+	json.Unmarshal(rawContent, &packetReceived)
+	handleClientMessage(myGossiper, &GossipPacket{
+		DataRequest: packetReceived.DataRequest,
+	}, myGossiper.address)
+	request.Body.Close()
 }

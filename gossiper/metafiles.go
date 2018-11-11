@@ -15,7 +15,7 @@ type FileMetaData struct {
 	Name      string
 	Size      uint
 	MetaFile  []byte
-	HashValue  []byte
+	HashValue []byte
 }
 
 // Get the hash of a chunk in position i
@@ -56,13 +56,13 @@ func GetChunkNumber(metaFile []byte) uint {
 // Structure containing slice of meta data files and a mutex
 type MetaDataList struct {
 	metaDataFiles []FileMetaData
-	mutex     	*sync.Mutex
+	mutex         *sync.Mutex
 }
 
 func NewMetaDataList() MetaDataList {
 	return MetaDataList{
 		metaDataFiles: make([]FileMetaData, 0),
-		mutex:     &sync.Mutex{},
+		mutex:         &sync.Mutex{},
 	}
 }
 
@@ -152,7 +152,7 @@ func ChunkFileName(chunk []byte) string {
 	auxHash := sha256.New()
 	auxHash.Write(chunk)
 	hashString := hex.EncodeToString(auxHash.Sum(nil))
-	// Limit hash filename size
+	// Limit chunk filename size
 	if len(hashString) > 249 {
 		hashString = hashString[:249]
 	}
@@ -169,4 +169,25 @@ func WriteChunksOnDisk(chunks [][]byte, dir, fileName string) {
 		chunkDir := absPath + string(os.PathSeparator) + dir
 		WriteFileOnDisk(chunk, chunkDir, filename)
 	}
+}
+
+func ReconstructFromChunks(chunks *[][]byte) *[]byte {
+	completeFile := make([]byte, 0)
+	for i := 0; i < len(*chunks); i++ {
+		completeFile = append(completeFile, (*chunks)[i]...)
+	}
+
+	return &completeFile
+}
+
+func GetChunkFilename(hash []byte) string {
+	offset := myGossiper.hashSize / 8
+
+	hashString := hex.EncodeToString(hash[:offset])
+	// Limit chunk filename size
+	if len(hashString) > 249 {
+		hashString = hashString[:249]
+	}
+	filename := hashString + ".chunk"
+	return filename
 }
