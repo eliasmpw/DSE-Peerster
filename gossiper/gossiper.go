@@ -10,32 +10,38 @@ import (
 )
 
 type Gossiper struct {
-	address            *net.UDPAddr
-	conn               *net.UDPConn
-	Name               string
-	uiPort             string
-	uiConn             *net.UDPConn
-	addressStr         string
-	isSimple           bool
-	peersList          []string
-	allPrivateMessages []PrivateMessage
-	allRumorMessages   []RumorMessage
-	Vc                 StatusPacket
-	channelsListening  map[string]chan *PeerStatus
-	mutex              *sync.Mutex
-	routingTable       RoutingTable
-	routeRumorTimer    int
-	sendGossipQueue    chan *QueuedMessage
-	sharedFilesDir     string
-	chunkFilesDir      string
-	downloadedFilesDir string
-	hopLimit           uint
-	hashSize           uint
-	chunkSize          uint
-	metaDataList       MetaDataList
-	filesListening     map[string]chan *DataReply
-	filesMutex         *sync.Mutex
-	fileDownloadsList  FileDownloadsList
+	address                *net.UDPAddr
+	conn                   *net.UDPConn
+	Name                   string
+	uiPort                 string
+	uiConn                 *net.UDPConn
+	addressStr             string
+	isSimple               bool
+	peersList              []string
+	allPrivateMessages     []PrivateMessage
+	allRumorMessages       []RumorMessage
+	Vc                     StatusPacket
+	channelsListening      map[string]chan *PeerStatus
+	mutex                  *sync.Mutex
+	routingTable           RoutingTable
+	routeRumorTimer        int
+	sendGossipQueue        chan *QueuedMessage
+	sharedFilesDir         string
+	chunkFilesDir          string
+	downloadedFilesDir     string
+	hopLimit               uint
+	hashSize               uint
+	chunkSize              uint
+	metaDataList           MetaDataList
+	filesListening         map[string]chan *DataReply
+	filesMutex             *sync.Mutex
+	fileDownloadsList      FileDownloadsList
+	searchList             SearchList
+	searchesListening      chan *SearchReply
+	searchesMutex          *sync.Mutex
+	maxSearchBudget        int
+	searchMatchesThreshold int
+	recentSearches         RecentSearches
 }
 
 func NewGossiper(
@@ -51,6 +57,8 @@ func NewGossiper(
 	hopLimit uint,
 	hashSize uint,
 	chunkSize uint,
+	maxSearchBudget int,
+	searchMatchesThreshold int,
 ) *Gossiper {
 	udpAddr, err := net.ResolveUDPAddr("udp4", addressStr)
 	common.CheckError(err)
@@ -58,32 +66,38 @@ func NewGossiper(
 	common.CheckError(err)
 	uiPort, uiUdpConn := common.StartLocalConnection(uiPort)
 	return &Gossiper{
-		address:            udpAddr,
-		conn:               udpConn,
-		Name:               name,
-		uiPort:             uiPort,
-		uiConn:             uiUdpConn,
-		addressStr:         addressStr,
-		isSimple:           isSimple,
-		peersList:          peersList,
-		allPrivateMessages: []PrivateMessage{},
-		allRumorMessages:   []RumorMessage{},
-		Vc:                 *NewStatusPacket(name),
-		channelsListening:  make(map[string]chan *PeerStatus),
-		mutex:              &sync.Mutex{},
-		routingTable:       *NewRoutingTable(),
-		routeRumorTimer:    rTimer,
-		sendGossipQueue:    make(chan *QueuedMessage),
-		sharedFilesDir:     sharedFilesDir,
-		chunkFilesDir:      chunkFilesDir,
-		downloadedFilesDir: downloadedFilesDir,
-		hopLimit:           hopLimit,
-		hashSize:           hashSize,
-		chunkSize:          chunkSize,
-		metaDataList:       NewMetaDataList(),
-		filesListening:     make(map[string]chan *DataReply),
-		filesMutex:         &sync.Mutex{},
-		fileDownloadsList:  *NewFileDownloadsList(),
+		address:                udpAddr,
+		conn:                   udpConn,
+		Name:                   name,
+		uiPort:                 uiPort,
+		uiConn:                 uiUdpConn,
+		addressStr:             addressStr,
+		isSimple:               isSimple,
+		peersList:              peersList,
+		allPrivateMessages:     []PrivateMessage{},
+		allRumorMessages:       []RumorMessage{},
+		Vc:                     *NewStatusPacket(name),
+		channelsListening:      make(map[string]chan *PeerStatus),
+		mutex:                  &sync.Mutex{},
+		routingTable:           *NewRoutingTable(),
+		routeRumorTimer:        rTimer,
+		sendGossipQueue:        make(chan *QueuedMessage),
+		sharedFilesDir:         sharedFilesDir,
+		chunkFilesDir:          chunkFilesDir,
+		downloadedFilesDir:     downloadedFilesDir,
+		hopLimit:               hopLimit,
+		hashSize:               hashSize,
+		chunkSize:              chunkSize,
+		metaDataList:           *NewMetaDataList(),
+		filesListening:         make(map[string]chan *DataReply),
+		filesMutex:             &sync.Mutex{},
+		fileDownloadsList:      *NewFileDownloadsList(),
+		searchList:             *NewSearchList(),
+		searchesListening:      make(chan *SearchReply),
+		searchesMutex:          &sync.Mutex{},
+		maxSearchBudget:        maxSearchBudget,
+		searchMatchesThreshold: searchMatchesThreshold,
+		recentSearches:         *NewRecentSearches(),
 	}
 }
 

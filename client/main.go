@@ -7,6 +7,7 @@ import (
 	"github.com/eliasmpw/Peerster/common"
 	"github.com/eliasmpw/Peerster/gossiper"
 	"net"
+	"strings"
 )
 
 const HOP_LIMIT = 10
@@ -18,6 +19,8 @@ func main() {
 	dest := flag.String("dest", "", "Destination for the private message")
 	file := flag.String("file", "", "File to be indexed by the gossiper")
 	request := flag.String("request", "", "Request a chunk or metafile of this hash")
+	keywords := flag.String("keywords", "", "Keywords for file search")
+	budget := flag.Int64("budget", 2, "Budget for search query messages")
 	flag.Parse()
 	// Create packet to send
 	var packetToSend = gossiper.GossipPacket{}
@@ -48,6 +51,17 @@ func main() {
 			packetToSend = gossiper.GossipPacket{
 				Simple: &simpleWithFilePath,
 			}
+		} else if *keywords != "" {
+			// If it is a file search
+			searchRequest := gossiper.SearchRequest{
+				Origin:   "",
+				Budget:   uint64(*budget),
+				Keywords: strings.Split(*keywords, ","),
+			}
+			packetToSend = gossiper.GossipPacket{
+				SearchRequest: &searchRequest,
+			}
+
 		}
 	} else if *dest == "" {
 		// If it is a gossip

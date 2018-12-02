@@ -1,6 +1,7 @@
 package gossiper
 
 import (
+	"bytes"
 	"sync"
 )
 
@@ -8,8 +9,7 @@ import (
 type FileDownload struct {
 	metaData  FileMetaData
 	Chunks    [][]byte
-	NextChunk uint
-	LastChunk uint
+	NextChunk uint64
 }
 
 // List of file downloads that are in progress
@@ -65,5 +65,17 @@ func (fdl *FileDownloadsList) Add(f *FileDownload) bool {
 func (fdl *FileDownloadsList) Remove(f *FileDownload) {
 	fdl.mutex.Lock()
 	fdl.fileDownloads[string(f.metaData.HashValue)] = nil
+	fdl.mutex.Unlock()
+}
+
+func (fdl *FileDownloadsList) AddChunkNumberToMetaData(hash []byte, chunkNumber uint64) {
+	fdl.mutex.Lock()
+	for i, download := range fdl.fileDownloads {
+		if bytes.Equal(download.metaData.HashValue, hash) {
+			fdl.fileDownloads[i].metaData.ChunkMap = append(fdl.fileDownloads[i].metaData.ChunkMap, chunkNumber)
+			fdl.mutex.Unlock()
+			return
+		}
+	}
 	fdl.mutex.Unlock()
 }

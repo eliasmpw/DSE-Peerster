@@ -41,7 +41,7 @@ func handleClientMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 			// Read the file
 			fileContent, err := ioutil.ReadFile(path)
 			common.CheckError(err)
-			fileSize := uint(len(fileContent))
+			fileSize := uint64(len(fileContent))
 			// Divide the file into chunks
 			chunks := SplitToChunks(fileContent, gsspr.chunkSize)
 			// Create hashes for chunks
@@ -55,13 +55,19 @@ func handleClientMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 			h := sha256.New()
 			h.Write(metaFile)
 			hashValue := h.Sum(nil)
+			chunkCount := GetChunkNumber(metaFile)
+			completeChunkMap := make([]uint64, chunkCount)
+			for i := uint64(0); i < chunkCount; i++ {
+				completeChunkMap[i] = uint64(i + 1)
+			}
 			// Add to the MetaData List
 			fmdAux := FileMetaData{
-				Origin:    gsspr.Name,
+				Origins:   []string{gsspr.Name},
 				Name:      fileName,
 				Size:      fileSize,
 				MetaFile:  metaFile,
 				HashValue: hashValue,
+				ChunkMap:  completeChunkMap,
 			}
 			gsspr.metaDataList.Add(fmdAux)
 
@@ -116,6 +122,15 @@ func handleClientMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 			FileName:    packetReceived.DataRequest.FileName,
 		}
 		StartFileDownload(gsspr, newDataRequest)
+	}
+	if packetReceived.SearchRequest != nil {
+		// Handle search request
+		newSearchRequest := SearchRequest{
+			Origin:   gsspr.Name,
+			Budget:   packetReceived.SearchRequest.Budget,
+			Keywords: packetReceived.SearchRequest.Keywords,
+		}
+		StartFileSearch(gsspr, newSearchRequest, true)
 	}
 }
 
@@ -177,6 +192,14 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 	if packetReceived.DataReply != nil {
 		// Handle data reply
 		processDataReply(gsspr, *packetReceived.DataReply, sourceAddr.String())
+	}
+	if packetReceived.SearchRequest != nil {
+		// Handle search request
+		ProcessSearchRequest(gsspr, *packetReceived.SearchRequest, sourceAddr.String())
+	}
+	if packetReceived.SearchReply != nil {
+		// Handle data reply
+		processSearchReply(gsspr, *packetReceived.SearchReply, sourceAddr.String())
 	}
 }
 

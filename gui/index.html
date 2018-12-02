@@ -103,26 +103,54 @@
                 </div>
             </div>
         </div>
-        <div id="filesBox" class="col-md-6">
-            <div id="shareFileBox">
-                <h5>Share File</h5>
-                <input type="file" id="selectedFile"/>
-                <button type="button" id="shareFile" class="btn btn-success">Share File</button>
+        <div id="filesBox" class="col-md-3">
+            <div class="row">
+                <div id="shareFileBox">
+                    <h5>Share File</h5>
+                    <input type="file" id="selectedFile"/>
+                    <button type="button" id="shareFile" class="btn btn-success">Share File</button>
+                </div>
             </div>
-            <div id="downloadFileBox">
-                <div class="row">
-                    <h5>Download File</h5>
-                    <div id="downloadInfo">Download in progress...</div>
+            <div class="row">
+                <div id="downloadFileBox">
+                    <div class="row">
+                        <h5>Download File</h5>
+                        <div id="downloadInfo">Download in progress...</div>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="downloadFileName" placeholder="File Name"/>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="downloadHash" placeholder="Hash"/>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="downloadNode" placeholder="Node"/>
+                        <button type="button" id="downloadFileButton" class="btn btn-success">Download File</button>
+                    </div>
                 </div>
-                <div class="row">
-                    <input type="text" id="downloadFileName" placeholder="File Name"/>
-                </div>
-                <div class="row">
-                    <input type="text" id="downloadHash" placeholder="Hash"/>
-                </div>
-                <div class="row">
-                    <input type="text" id="downloadNode" placeholder="Node"/>
-                    <button type="button" id="downloadFileButton" class="btn btn-success">Download File</button>
+            </div>
+        </div>
+
+
+        <div id="filesBox" class="col-md-3">
+
+            <div class="row">
+                <div id="searchFileBox">
+                    <div class="row">
+                        <h5 class="text-center text-primary">
+                            Search File
+                            <span class="helpNodes">(Click on a file name in the search result to download)</span>
+                            <div id="searchInfo">Search in progress...</div>
+                        </h5>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="searchKeyword" placeholder="Keywords (comma separated)"/>
+                        <button type="button" id="searchFileButton" class="btn btn-success">Search</button>
+                    </div>
+                    <div class="row">
+                        <div id="allFilesSearch">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

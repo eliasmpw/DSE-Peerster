@@ -5,21 +5,23 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"github.com/eliasmpw/Peerster/common"
+	"math"
 	"os"
 	"path/filepath"
 	"sync"
 )
 
 type FileMetaData struct {
-	Origin    string
+	Origins   []string
 	Name      string
-	Size      uint
+	Size      uint64
 	MetaFile  []byte
 	HashValue []byte
+	ChunkMap  []uint64
 }
 
 // Get the hash of a chunk in position i
-func (fmd FileMetaData) GetChunkHash(i int) []byte {
+func (fmd FileMetaData) GetChunkHash(i uint64) []byte {
 	return fmd.ChunkHashes()[i]
 }
 
@@ -47,10 +49,12 @@ func (fmd FileMetaData) GetPositionOfChunk(chunkHash []byte) *int {
 	return nil
 }
 
-func GetChunkNumber(metaFile []byte) uint {
-	dataLen := uint(len(metaFile))
-	hashSizeInBytes := myGossiper.hashSize / 8
-	return dataLen / hashSizeInBytes
+func GetChunkNumber(metaFile []byte) uint64 {
+	dataLen := uint64(len(metaFile))
+	hashSizeInBytes := uint64(myGossiper.hashSize / 8)
+
+	division := float64(dataLen) / float64(hashSizeInBytes)
+	return uint64(math.Ceil(division))
 }
 
 // Structure containing slice of meta data files and a mutex
@@ -59,8 +63,8 @@ type MetaDataList struct {
 	mutex         *sync.Mutex
 }
 
-func NewMetaDataList() MetaDataList {
-	return MetaDataList{
+func NewMetaDataList() *MetaDataList {
+	return &MetaDataList{
 		metaDataFiles: make([]FileMetaData, 0),
 		mutex:         &sync.Mutex{},
 	}
@@ -100,6 +104,19 @@ func (mdl *MetaDataList) GetByHash(hash []byte) *FileMetaData {
 	}
 	mdl.mutex.Unlock()
 	return nil
+}
+
+// Add a chunk number we received to the chunk map
+func (mdl *MetaDataList) AddChunkNumberToMap(hash []byte, chunkNumber uint64) {
+	mdl.mutex.Lock()
+	for i, fmd := range mdl.metaDataFiles {
+		if bytes.Equal(fmd.HashValue, hash) {
+			mdl.metaDataFiles[i].ChunkMap = append(mdl.metaDataFiles[i].ChunkMap, chunkNumber)
+			mdl.mutex.Unlock()
+			return
+		}
+	}
+	mdl.mutex.Unlock()
 }
 
 // Helper functions

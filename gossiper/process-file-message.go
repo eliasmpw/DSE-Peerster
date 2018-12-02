@@ -3,8 +3,6 @@ package gossiper
 import (
 	"bytes"
 	"crypto/sha256"
-	"encoding/hex"
-	"fmt"
 	"github.com/eliasmpw/Peerster/common"
 	"io/ioutil"
 	"os"
@@ -17,137 +15,127 @@ func StartFileDownload(gsspr *Gossiper, request DataRequest) {
 	metaData := gsspr.metaDataList.GetByHash(request.HashValue)
 
 	if metaData == nil {
-		// First request the MetaFile
-		metaFileReq := DataRequest{
-			Origin:      gsspr.Name,
-			Destination: request.Destination,
-			HopLimit:    request.HopLimit,
-			FileName:    request.FileName,
-			HashValue:   request.HashValue,
-		}
-		// Decrement HopLimit
-		metaFileReq.HopLimit -= 1
-		if metaFileReq.HopLimit <= 0 {
-			return
-		}
+		// Check if there is a entry for the search results and use their origins if present
+		metaData = gsspr.searchList.GetByHash(request.HashValue)
 
-		// Get Next Hop and send
-		nextHop := gsspr.routingTable.GetAddress(metaFileReq.Destination)
-		if nextHop == "" {
-			return
-		}
-		if nextHop != "" {
-			gsspr.sendGossipQueue <- &QueuedMessage{
-				packet: GossipPacket{
-					DataRequest: &metaFileReq,
-				},
-				destination: nextHop,
+		// If not send a request for everything
+		if metaData == nil {
+			// First request the MetaFile
+			metaFileReq := DataRequest{
+				Origin:      gsspr.Name,
+				Destination: request.Destination,
+				HopLimit:    request.HopLimit,
+				FileName:    request.FileName,
+				HashValue:   request.HashValue,
 			}
-		}
+			// Decrement HopLimit
+			metaFileReq.HopLimit -= 1
+			if metaFileReq.HopLimit <= 0 {
+				return
+			}
 
-		// Log that we are downloading the MetaFile
-		logDownloadingMetaFile(metaFileReq.FileName, metaFileReq.Destination)
-
-		// and wait for data reply
-		metaFileReplyChannel := make(chan *DataReply)
-
-		metaFileReplyString := string(metaFileReq.HashValue)
-
-		gsspr.filesMutex.Lock()
-		_, exists := gsspr.filesListening[metaFileReplyString]
-		gsspr.filesMutex.Unlock()
-
-		if exists {
-			// It has already been requested by other thread
-			return
-		}
-
-		// Register new channel
-		gsspr.filesMutex.Lock()
-		gsspr.filesListening[metaFileReplyString] = metaFileReplyChannel
-		gsspr.filesMutex.Unlock()
-
-		received := false
-
-		// While not received
-		for !received {
-			// Set timer
-			timer := time.NewTimer(time.Millisecond * 5000)
-
-			select {
-			case <-timer.C:
-				// If timer runs out
-				timer.Stop()
-				// Resend
+			// Get Next Hop and send
+			nextHop := gsspr.routingTable.GetAddress(metaFileReq.Destination)
+			if nextHop == "" {
+				return
+			}
+			if nextHop != "" {
 				gsspr.sendGossipQueue <- &QueuedMessage{
 					packet: GossipPacket{
 						DataRequest: &metaFileReq,
 					},
 					destination: nextHop,
 				}
-			case replyMetaFile := <-metaFileReplyChannel:
-				// Received a reply
-				timer.Stop()
+			}
 
-				// Check integrity of reply content
-				hash := sha256.New()
-				hash.Write(replyMetaFile.Data)
-				replyHash := hash.Sum(nil)
+			// Log that we are downloading the MetaFile
+			logDownloadingMetaFile(metaFileReq.FileName, metaFileReq.Destination)
 
-				if bytes.Equal(replyHash, request.HashValue) {
-					// We have received the chunk correctly
-					received = true
+			// and wait for data reply
+			metaFileReplyChannel := make(chan *DataReply)
 
-					metaData = &FileMetaData{
-						Origin:    replyMetaFile.Origin,
-						Name:      request.FileName,
-						Size:      GetChunkNumber(replyMetaFile.Data),
-						MetaFile:  nil,
-						HashValue: replyHash,
+			metaFileReplyString := string(metaFileReq.HashValue)
+
+			gsspr.filesMutex.Lock()
+			_, exists := gsspr.filesListening[metaFileReplyString]
+			gsspr.filesMutex.Unlock()
+
+			if exists {
+				// It has already been requested by other thread
+				return
+			}
+
+			// Register new channel
+			gsspr.filesMutex.Lock()
+			gsspr.filesListening[metaFileReplyString] = metaFileReplyChannel
+			gsspr.filesMutex.Unlock()
+
+			received := false
+
+			// While not received
+			for !received {
+				// Set timer
+				timer := time.NewTimer(time.Millisecond * 5000)
+
+				select {
+				case <-timer.C:
+					// If timer runs out
+					timer.Stop()
+					// Resend
+					gsspr.sendGossipQueue <- &QueuedMessage{
+						packet: GossipPacket{
+							DataRequest: &metaFileReq,
+						},
+						destination: nextHop,
 					}
+				case replyMetaFile := <-metaFileReplyChannel:
+					// Received a reply
+					timer.Stop()
 
-					// Add to metaDataList
-					metaData.MetaFile = make([]byte, len(replyMetaFile.Data))
-					copy(metaData.MetaFile, replyMetaFile.Data)
-					gsspr.metaDataList.Add(*metaData)
+					// Check integrity of reply content
+					hash := sha256.New()
+					hash.Write(replyMetaFile.Data)
+					replyHash := hash.Sum(nil)
 
-					// Close channel
-					close(metaFileReplyChannel)
-					gsspr.filesMutex.Lock()
-					gsspr.filesListening[metaFileReplyString] = nil
-					gsspr.filesMutex.Unlock()
+					if bytes.Equal(replyHash, request.HashValue) {
+						// We have received the chunk correctly
+						received = true
 
-				} else {
-					// Invalid MetaFile, keep the loop
-					continue
+						metaData = &FileMetaData{
+							Origins:   []string{replyMetaFile.Origin},
+							Name:      request.FileName,
+							Size:      GetChunkNumber(replyMetaFile.Data),
+							MetaFile:  nil,
+							HashValue: replyHash,
+							ChunkMap:  make([]uint64, 0),
+						}
+
+						// Add to metaDataList
+						metaData.MetaFile = make([]byte, len(replyMetaFile.Data))
+						copy(metaData.MetaFile, replyMetaFile.Data)
+						gsspr.metaDataList.Add(*metaData)
+
+					} else {
+						// Invalid MetaFile, keep the loop
+						continue
+					}
 				}
 			}
+
+			// Close channel
+			close(metaFileReplyChannel)
+			gsspr.filesMutex.Lock()
+			gsspr.filesListening[metaFileReplyString] = nil
+			gsspr.filesMutex.Unlock()
 		}
 	}
-	fmt.Println("inside")
-	fmt.Println("inside2")
-	fmt.Println("inside3")
-	fmt.Println("inside4")
-	fmt.Println("inside5")
-	fmt.Println("inside6")
-	fmt.Println("inside7")
-	fmt.Println(gsspr.metaDataList)
-	fmt.Println(metaData.HashValue)
-	fmt.Println(metaData.Origin)
-	fmt.Println(metaData.Name)
-	fmt.Println(metaData.MetaFile)
-	fmt.Println(metaData.Size)
-	fmt.Println(hex.EncodeToString(request.HashValue))
 
 	chunkNumber := GetChunkNumber(metaData.MetaFile)
-	fmt.Println("inside222")
-	fmt.Println(chunkNumber)
 
 	fileDownload := FileDownload{
 		metaData:  *metaData,
 		Chunks:    make([][]byte, 0),
 		NextChunk: 0,
-		LastChunk: chunkNumber,
 	}
 
 	// Add new download to list of downloads
@@ -156,7 +144,7 @@ func StartFileDownload(gsspr *Gossiper, request DataRequest) {
 		return
 	}
 
-	for index := 0; uint(index) < chunkNumber; index++ {
+	for index := uint64(0); index < chunkNumber; index++ {
 
 		// Download chunk in position index
 		chunkHash := metaData.GetChunkHash(index)
@@ -164,7 +152,7 @@ func StartFileDownload(gsspr *Gossiper, request DataRequest) {
 		// build the request
 		chunkReq := DataRequest{
 			Origin:      gsspr.Name,
-			Destination: request.Destination,
+			Destination: metaData.Origins[index%uint64(len(metaData.Origins))],
 			HopLimit:    request.HopLimit,
 			FileName:    request.FileName,
 			HashValue:   chunkHash,
@@ -244,14 +232,11 @@ func StartFileDownload(gsspr *Gossiper, request DataRequest) {
 					chunkData := make([]byte, len(chunkReply.Data))
 					copy(chunkData, chunkReply.Data)
 
+					gsspr.metaDataList.AddChunkNumberToMap(metaData.HashValue, index+1)
+					gsspr.fileDownloadsList.AddChunkNumberToMetaData(metaData.HashValue, index+1)
 					fileDownload.NextChunk++
 					fileDownload.Chunks = append(fileDownload.Chunks, chunkData)
 
-					close(chunkReplyChannel)
-
-					gsspr.filesMutex.Lock()
-					gsspr.filesListening[chunkReplyString] = nil
-					gsspr.filesMutex.Unlock()
 				} else {
 					// Invalid chunk, keep looping
 					continue
@@ -259,6 +244,12 @@ func StartFileDownload(gsspr *Gossiper, request DataRequest) {
 			}
 
 		}
+
+		//Close channel
+		close(chunkReplyChannel)
+		gsspr.filesMutex.Lock()
+		gsspr.filesListening[chunkReplyString] = nil
+		gsspr.filesMutex.Unlock()
 	}
 
 	// We have all the chunks, reconstruct file
@@ -372,7 +363,6 @@ func ProcessDataRequest(gsspr *Gossiper, request DataRequest, addressReq string)
 			destination: nextHop,
 		}
 	}
-	return
 }
 
 func processDataReply(gsspr *Gossiper, reply DataReply, addressReq string) {
@@ -380,7 +370,7 @@ func processDataReply(gsspr *Gossiper, reply DataReply, addressReq string) {
 		// If we are the destination
 		dataReplyString := string(reply.HashValue)
 
-		// Create channel
+		// Send to channel
 		gsspr.filesMutex.Lock()
 		if gsspr.filesListening[dataReplyString] != nil {
 			gsspr.filesListening[dataReplyString] <- &reply

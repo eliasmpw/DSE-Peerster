@@ -30,6 +30,7 @@ func createRouteHandlers(gsspr *Gossiper) *mux.Router {
 	r.HandleFunc("/privateMessage", newPrivateMessageHandler).Methods("POST")
 	r.HandleFunc("/shareFile", shareFileHandler).Methods("POST")
 	r.HandleFunc("/downloadFile", downloadFileHandler).Methods("POST")
+	r.HandleFunc("/searchFile", searchFileHandler).Methods("POST")
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 
 	return r
@@ -135,5 +136,20 @@ func downloadFileHandler(writer http.ResponseWriter, request *http.Request) {
 	handleClientMessage(myGossiper, &GossipPacket{
 		DataRequest: packetReceived.DataRequest,
 	}, myGossiper.address)
+	request.Body.Close()
+}
+
+func searchFileHandler(writer http.ResponseWriter, request *http.Request) {
+	rawContent, _ := ioutil.ReadAll(request.Body)
+	var packetReceived GossipPacket
+	json.Unmarshal(rawContent, &packetReceived)
+	response, err := json.Marshal(StartFileSearch(myGossiper, SearchRequest{
+		Origin:   myGossiper.Name,
+		Budget:   packetReceived.SearchRequest.Budget,
+		Keywords: packetReceived.SearchRequest.Keywords,
+	}, false))
+	common.CheckError(err)
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(response)
 	request.Body.Close()
 }

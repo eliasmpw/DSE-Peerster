@@ -25,6 +25,8 @@ $(document).ready(function () {
     $('#privateMessageModal').on('hide.bs.modal', onModalClosed);
     $('#shareFile').click(shareFileBtn);
     $('#downloadFileButton').click(downloadFileBtn);
+    $('#searchFileButton').click(searchFileBtn);
+    $('body').on('click', '.searchResultFile', downloadFileFromSearch);
 
     let idName;
     let ipAddress;
@@ -283,7 +285,7 @@ $(document).ready(function () {
                     Origin: '',
                     Destination: node,
                     HopLimit: 10,
-                    HashValue: encodeHex(hash),
+                    HashValue: decodeHex(hash),
                     FileName: fileName
                 }
             };
@@ -309,10 +311,88 @@ $(document).ready(function () {
         $('#downloadNode').val('');
     }
 
-    function encodeHex(myString) {
+    function searchFileBtn() {
+        const keywords = parseKeywords($('#searchKeyword').val());
+        if (keywords) {
+            const GossipPacket = {
+                SearchRequest: {
+                    Origin: '',
+                    Budget: 2,
+                    Keywords: keywords
+                }
+            };
+            console.log(GossipPacket);
+            const packet = JSON.stringify(GossipPacket);
+            $('#searchInfo').show();
+            $.ajax({
+                type: 'POST',
+                url: '/searchFile',
+                data: packet,
+                success: function (response) {
+                    console.log("response: ", response);
+                    if (response) {
+                        newContent = "";
+                        for (let metafile of response) {
+                            console.log(metafile);
+                            newContent = newContent + '<div class="searchResultFile" data-hashvalue="' + metafile.HashValue + '" data-nodename="' + metafile.Origins[0] + '">' + metafile.Name + '</div>';
+                        }
+                        $('#allFilesSearch').html(newContent);
+                    }
+                    $('#searchInfo').hide();
+                },
+                error: function (request, status, error) {
+                    $('#searchInfo').hide();
+                }
+            });
+        }
+        $('#searchKeyword').val('');
+    }
+
+    function downloadFileFromSearch(element) {
+        const fileName = element.target.innerHTML;
+        const hash = element.target.dataset.hashvalue;
+        const node = element.target.dataset.nodename;
+        if (fileName && hash && node) {
+            const GossipPacket = {
+                DataRequest: {
+                    Origin: '',
+                    Destination: node,
+                    HopLimit: 10,
+                    HashValue: hash,
+                    FileName: fileName
+                }
+            };
+            console.log(GossipPacket);
+            const packet = JSON.stringify(GossipPacket);
+            $('#downloadInfo').show();
+            $.ajax({
+                type: 'POST',
+                url: '/downloadFile',
+                data: packet,
+                success: function (data, text) {
+                    $('#downloadInfo').hide();
+                    alert("Download of " + fileName + " completed!");
+                },
+                error: function (request, status, error) {
+                    $('#downloadInfo').hide();
+                    alert("Error in download");
+                }
+            });
+        }
+    }
+
+    function decodeHex(myString) {
         let bytes = [];
         for (let i = 0; i < myString.length; i += 2)
             bytes.push(parseInt(myString.substr(i, 2), 16));
         return bytes;
+    }
+
+    function parseKeywords(keywords) {
+        keywords = keywords.trim();
+        if (keywords) {
+            return keywords.split(',');
+        }
+        return null
     }
 });

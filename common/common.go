@@ -39,3 +39,31 @@ func CheckError(e error) {
 func FlipCoin() bool {
 	return rand.Int()%2 == 1
 }
+
+func MergeUint64Slices(left, right []uint64) []uint64 {
+	into := make([]uint64, 0, len(left)+len(right))
+	if len(left) == 0 {
+		return append(into, right...)
+	}
+	if len(right) == 0 {
+		return append(into, left...)
+	}
+
+	rightLast := 0
+	for _, lv := range left {
+		for _, rv := range right[rightLast:] {
+			if lv == rv {
+				rightLast += 1
+				continue
+			}
+			if lv < rv {
+				break
+			}
+			into = append(into, rv)
+			rightLast += 1
+		}
+		into = append(into, lv)
+	}
+	into = append(into, right[rightLast:]...)
+	return into
+}

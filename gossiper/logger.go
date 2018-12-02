@@ -67,7 +67,7 @@ func logPrivateMessage(packetReceived GossipPacket) {
 		packetReceived.Private.Text)
 }
 
-func logFileShared(fileName string, hash string) {
+func logFileShared(fileName, hash string) {
 	fmt.Printf("SHARING file %s with hash %s\n", fileName, hash)
 }
 
@@ -75,10 +75,18 @@ func logDownloadingMetaFile(fileName, peerName string) {
 	fmt.Printf("DOWNLOADING metafile of %s from %s\n", fileName, peerName)
 }
 
-func logDownloadingChunk(fileName string, chunkIndex int, peerName string) {
+func logDownloadingChunk(fileName string, chunkIndex uint64, peerName string) {
 	fmt.Printf("DOWNLOADING %s chunk %d from %s\n", fileName, chunkIndex, peerName)
 }
 
 func logFileReconstructed(fileName string) {
 	fmt.Printf("RECONSTRUCTED file %s\n", fileName)
+}
+
+func logFoundSearchMatch(fileName, peerName string) {
+	fmt.Printf("FOUND match %s at %s\n", fileName, peerName)
+}
+
+func logSearchFinished() {
+	fmt.Printf("SEARCH FINISHED\n")
 }
