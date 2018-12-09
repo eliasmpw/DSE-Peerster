@@ -42,6 +42,11 @@ type Gossiper struct {
 	maxSearchBudget        int
 	searchMatchesThreshold int
 	recentSearches         RecentSearches
+	blockChain 				BlockChainNode
+	currentForkRoute	[]string
+	currentFork				[]Block
+	miningBlock            Block
+	blockMutex             *sync.Mutex
 }
 
 func NewGossiper(
@@ -98,6 +103,11 @@ func NewGossiper(
 		maxSearchBudget:        maxSearchBudget,
 		searchMatchesThreshold: searchMatchesThreshold,
 		recentSearches:         *NewRecentSearches(),
+		blockChain:         	 NewBlockChain(),
+		currentForkRoute: 		 []string{},
+		currentFork:			 []Block{},
+		miningBlock:            Block{},
+		blockMutex:             &sync.Mutex{},
 	}
 }
 
@@ -111,13 +121,14 @@ func (gsspr *Gossiper) Serve() {
 		gsspr.StartGossipSender(wait)
 		wait.Wait()
 	} else {
-		wait.Add(6)
+		wait.Add(7)
 		gsspr.StartListeningClient(wait)
 		gsspr.StartListeningGossip(wait)
 		gsspr.StartGossipSender(wait)
 		gsspr.StartRouteRumoring(wait)
 		gsspr.StartServingGUI(wait)
 		gsspr.StartAntiEntropy(wait)
+		gsspr.StartMining(wait)
 		wait.Wait()
 	}
 }
@@ -192,6 +203,13 @@ func (gsspr *Gossiper) StartAntiEntropy(wait sync.WaitGroup) {
 				}
 			}
 		}
+	}()
+}
+
+func (gsspr *Gossiper) StartMining(wait sync.WaitGroup) {
+	go func() {
+		defer wait.Done()
+		startMining(gsspr)
 	}()
 }
 

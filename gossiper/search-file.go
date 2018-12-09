@@ -405,7 +405,7 @@ func searchFileLocally(gsspr *Gossiper, keywords []string, logFindings bool) ([]
 				auxMetaDataList = append(auxMetaDataList, newFinding)
 				validMetaDataList = append(validMetaDataList, newFinding)
 				if logFindings {
-					logFoundSearchMatch(newFinding.Name, newFinding.Origins[0])
+					logFoundSearchMatch(newFinding.Name, newFinding.Origins[0], newFinding.HashValue, newFinding.ChunkMap)
 				}
 				break;
 			}
@@ -460,7 +460,7 @@ func processSearchContent(gsspr *Gossiper, list []FileMetaData, reply *SearchRep
 					}
 					if !existing {
 						validMetaDatas = append(validMetaDatas, list[i])
-						logFoundSearchMatch(metaData.Name, reply.Origin)
+						logFoundSearchMatch(metaData.Name, reply.Origin, metaData.HashValue, metaData.ChunkMap)
 					}
 				}
 				break
@@ -480,7 +480,7 @@ func processSearchContent(gsspr *Gossiper, list []FileMetaData, reply *SearchRep
 				}
 				if !existing {
 					validMetaDatas = append(validMetaDatas, list[index])
-					logFoundSearchMatch(auxNewMetaData.Name, reply.Origin)
+					logFoundSearchMatch(auxNewMetaData.Name, reply.Origin, auxNewMetaData.HashValue, auxNewMetaData.ChunkMap)
 				}
 			}
 		}

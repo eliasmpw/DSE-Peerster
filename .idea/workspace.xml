@@ -2,223 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af797812-599a-479f-92db-a991b7474fe1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/gossiper/search-file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gossiper/blockchain.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test3.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Peerster.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Peerster.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0365c9101a0fefaa6007286fa4154299f12564a1fa946202d31431e2ff438a5a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/047f4afb0842486e55e6532a13418f21fd528090cb8f231bfaf6b9c224469dea.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/05017eb242090a62302b5c1903de7ce2ef0842d17435433b87a83194eb1ad1c2.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/05432f05255c17a7d33911a000e49cbcf52329b1bcc194c45676a6f0f4ff9d9b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/08ebadcd4dcf5e0a9847f74142b7bb705e842b0b9a2da75f63ad9e6213e3e302.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0aedfeffed20df0c8ed98e2b8ec5f0c87949c844530698f615408ff1388233b7.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0b843a73887bdce2e2dbb41f39631ebe2e641ec425b8e658320a777dac8f59bf.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0b9513a821b172e93f42a4d9d8f82eaefcecaaa4bfc551da82667f2d12445f2b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0cc22c53abb7ad179c3c0bb682d6a1c0f7387cd0f1e399e2ee2219d563eac7e9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0e1f1b9e3be4d5a78dc3e1fedee40adf88e04ae5a85938cf6fa88d6083f9a78a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/0e5e40a144720d3073ebec3ce7b0e5ce165ea4c2eac7198b66f89e210da71a04.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/1342b8a922269d6e4402be81ffd5198de8a8162d04a846694eca6bf58b3eef88.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/13a3d6dc5a9fde1c635035d31913210a55c8063fcad77595c91d6a3e8f6d6ec7.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/14be842c8ce550a61c52bb4bd9761e89ed6b62c94bfe02f3743f89b69c8c6cef.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/158855ae7c25ac2c3beedc1ef73f14b0f783bdcee101141f13d8eae7919e9ac4.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/19c9d1c53de0dafc35570b657d6282734afa06fea5128054d44ce3c164d8107b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/1c5cecd9fba4dcee30aa5dcfdfd0581380e2e7c9af7bdaa5c1a77675e4be5a92.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/1ef2bed5adb7e8e7939c85410dbe8e98d8b55e183487d49f71eb81354848cafe.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/1f198223d9ef22a9ddefb05aaaf470334188a573eb267d2c3d8ed81f6e83a91d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/1f75c7dedb6695f7bbad5a8cc4ef36dc7c31b973cac7c9619e0b0ba68bae3cc8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2499983a501ea912c2b9214a643088f0efcefafab0e1c8de2e1d95c7beb6413c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/254c691308504deacfc054c43b662ad1e5860c03155d57bfc9c26f08841c3669.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/261d077c8fd59e01cc76fcb2ac2b1ba746b036ac02b50879bd5ec60a3e4569d4.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/269033a4a8e94fffffa9f25237c2ac17de285030eadd58f060cf8d184be1b270.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/28ec742c74dee0317f703b055c89999db86018095372c9f87817be067cf4975a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/295090c99fd12561bd4349a420cbf7c96280839395c26c38f83a734b07f8d660.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/29f433008a7adba385032cba686a239e3f0a174066cb6aa559671cc11e5447e1.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2a3b7d2f038d21f7a4fe6844d38a2c3ee156fb1410818b79319ba4cb2bcff41e.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2a704b9bf309ea0ec0aa5a617cf6c7c2e1aa2416f2e98ded2db83c771d030c66.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2b09f4dfe9428d81fb6f0424568778e355ed8f4a0c7bbe0c59cec8ff721c1443.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2b4c5bda91bb469f3432ae4862b7fc0ec30f82cc440db96220aa06f991acdf08.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2cf46d58d8f0282c741803619541adef2e3fdbd81ca893bd7b02d7f437bb993e.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/2ef6c9cd43ec4fa837c9d5bf5dbcf0d68d9db423a95f202b1cec4c577cdc507b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/31148502608a599c228b43845bab9aa79453b5c3cb156fbd6638d634c809be1c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/32c37904a52592ba3738aeb446753165154589b36a263070d9464e8843c4df4d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/33ef8ecbb508b438ec69ab880e14ff50ce3dfb0d0a324482a2dfe271ff4decbf.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/361e2c813834462cadd608fefafea2139a90c215e09d39b5d62420c21074f49d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/368e19e2a2b7f03bfe03862af9c7b95067e396d579397299976b1f1577be72f1.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3a3c1243fed1e2fc44b52b9fea2f9decef55cb7e9d2d441b71d78e7b823be147.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3a680abb5db3cec954040e18cfae4e90563ae0b3e4f2380310f0f845dd8e02d9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3ab8dcd3e85f38e565ce00d63d74fbcb540c840395f0297c933c20b1e2091f42.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3b114c11c2fd35472c4bea23a7afb10907316f68737ea14f66cfc99c541505a0.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3cbd18b252606dcc275c02443816ce4b7b69330b71c10c63eaf4fda6d86fb0b5.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3ce1f7f0d22174cb19ae6b29f9eed4ae81213b3e97e93b6cc8f005fb802792ec.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3f0e7f8805552418688dd26d6ca6a765dc84f222fbadc1ca737a44f65a3a28ca.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/3ffbeb62a8ce870a13c7229517f9dfafdcdd98b59a759589acc5d76ca4ce38b0.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/405fb75b7ac4a476a46af16e4af25d1652adc5f49403e50b1233fedc7d71c98c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4227afd3d2448e37ad7eda8b1ace41792732cf4db25d9222c00a4b5edf4f1f49.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/45178eb9ee67fa1cbc4bfad7e00e13cbf67b5fbe093779a9eee69413a4cfcfc2.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4622d7516e5f5dc4734f74a04954dd19d477e3cde1ed1939048c4b5a7b36495f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/47516659d38a158190c99f37284b19ea7dc45b297dc2fb084780add57053c24e.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/48525759c7d891b4fec05ec3518596a6ed9658aadb10912bbb0f95a54522429d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4b6cecfa0ab06fa6c786ba528d2a392912171cfaebe231676be668d7753f292c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4b974fe27e2ee2588fb19797539fb50d21e72897fea5dd2286f61f0511452f17.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4ca8435f9e187d6f0b973db580faeaa1062e70f4bd615ef86f496d9d417d6ab8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4d0ee612d54787a1c8ae66fbccaf0b5890c1acd0801ee07938f76420bd1d5ddd.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/4dab2506fba696605916e4da3833d5fea974995d52de525582b1f136a3b23b48.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/537ef15434a1f05642d141a2837c8d24119b210fbb7a94c56ea2a12464fb0186.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/599ccad7e5f5393bfd302c6b8dd59aff320b2de9b00a529989af5dd7d3770f56.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/5b86a31fcd8f158386e474b2d76b94bee86d8194250f7d4ce661d14aeec785f7.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/5cf4504af8e7dc1ec93ffef9ad0e2ae2b2bb73c15acae899fb36e71c25f0cca9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/5e8bbf48ffe73e124495b43ebef7815fedf1797f6069b5c4d030b6b7a38cb199.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/5f6ddd5a56faa10d709f1fab906705cef609d9db8fd31a28243aed44743bb973.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/61aff7107a53d6ed4da9f3ce8d39980be906ac7b355869fa6f7cca08589797ed.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/62395d28112a9387d3e6fc6991a8c66bbbc4b42df0eb515f5c3572921950b07d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/643653636e73b44ec6a94bfea84bb35cb137d0a075a6d0f70c866a35d792d21b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/644f941818969aee8b0d398deb6539086b7d5d5136ae7b88bdf8479084338844.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/6569226646e95050ddbf0e0fa6e53a2b60005556e5dfa30d4d2120740f3142e5.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/68bb5363ba14ee3997deaf0a721c853e11abf9aebd0eaacad65cd4a8cde2755c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/6a9c51392a41f0b4abaca8030653a27e7ab5be8ad827edda43390b6e29fdae15.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/6dfb928b2bfaaa5f09ee634b46606283dbe6779708e1eb0363171066e0259671.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/6e214152654df24464f4f8ff9dbc5c7b5ac71e296af87deb0869a45164ab1472.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/70cb30ab8066ca79cf566985e08f2b5c451917670a3772265b2917a518003742.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/725b552f0b5f8a4aa31ef39c8336321f9367a3d9ef5d73bb174fd4d8fd8694a5.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/7475f1d69e51edc533149031b5423d1e87838d38c3be8ef838bc0e6eabcfcfe8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/761249447a1d862eddf7d3c81c3fbacd49caca78495bbab0389cc65d8b3c531a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/76eedd882bfb09afe50a48cb6f1423bc9d6cd3e55869094a7d33e18c738ab432.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/777033e532142a32964ad675c4bf09196fb24e1a6feff96c2b2e15ff4abb1e1d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/79a02d74580fd9c5dd9a5bc2c58370f198997768519de99b49f5f190ffc8ca07.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/7adeb5a586d2bf75ae4fe63be20f4d7b789bd358f29852658fa8695cb4c7e2a1.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/7ba053a6726948cf42ac51925703194bdb14bd1f347bedbaaa7c6a0c80a76bc4.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/8078928c1622ff4662df413662cc891e7136fa62766112895b4b7998f882707f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/808c0c5c973279aa154d167d810d202e3d587d9213efea914e9f223bb355a12c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/816326b0004a9795fda8457573f06e10c4d9d2ee318848ddf56ab5fb01593e84.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/8414fa360a084aa5428862cdfdd77286a71281f328e1b452237004dfb7feec98.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/86553641052c77c46dd3287abcd6f262af594995fd0a6f86ce278aba80cf0d64.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/88efa7aea6eb5904cf50938f3a4c474747fb413f4c2fdf453c3a5aae9c9506df.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/897c7c0c044f8637a628b92d05f5cac8f19ea55f198efe25bc92297af914a4ee.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/8a928519a99142fffefdc351ed21dc7352b77fa99d9ad699074fa9f99af83980.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/8d05c263b990e81ee3f6672c108e74c1b08be0e75775a7d419d03631d769ec41.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/8e768e37c16b9b89746958c496b13104dbeea71426d5ea93cf31c7ea5d2ea4c4.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/8f3f6374576511713ec636ba352d23081d92c90e50a193d2e41bf6da6a1b5fe6.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9089e91c33a3b29d644f02ab3a0bc2531c8f6a683a326d6b8ccbde46cc36b38e.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/90dbb8a79e275ee516db8a5573769de6e0b087b18a722dee69da51fd58afdb4f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/91795b332dc869f8d68bd936008056096af8099ca54275e673363ab6c6ae99fb.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9263858276cf48114a3ef7ca5a5c1250a787671c74e030205ba71223619cddff.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/92b0b328f9568fc6fb1ac1ce439711ff86ee877b032ee134e2e1b750a6dd3f3a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/94b56a70b69c83f32983c9042f9d99f2a7714798efb91229e1a31cf817356cb4.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9618f5e6d21ed823b3fc151c99e3d695b0bf9c914745e58c1519dba00fbf4f75.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9760b77b64844b8556c7066bf623f88104063a67010d5d1e40df8adca8642d40.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/994fce44e1e0913d81eaf85684a1ac6d259fd7b1e1149a136c8044973ba6cc88.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9a001fde4124b15e74880c04000b85bab7cbb3c8431947ee436642bcfd7f4f87.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9a1b678a8bf1f71fcaea7c84ea6ef0c928f668eb708739e0af6930e21686dce7.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9a24d69dd3238a0c6fd4fc39c8efa392b032156ccd71d5aed518c46f45f83106.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9a40291bad2a29aa92475b5d9820e62ed6797cabd00c7f7de60441b2b934cbb6.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9acd2c606f2c9efd79bcc949c109a4e61f02f565e51a162f7bae41a1f246be9f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9bb6a8070eb27a40da684a9dfb2e6f8a055e158d8c79a6b6b10a70af0a4b0324.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/9dda29a3fe1518b859ea1087b25a797b761073fbc38a0b279601f592e9b1c0bb.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a090d8d83b0bade7e48d3b445defe580694efbf469b10c70b7f4dea000ec86e6.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a2222c44219d85c0d7a01f5fa9d19b35284bb597e8090fe95b256f6a847a68b0.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a2dca9e9b0dd5d76c03fd032ea88dc95a2acc0da441ec0920b5e42b230a7efbe.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a2e725e71bbd99ffff32f75bebd230b8bd7160a241fc04a0f01f753fdc0e7292.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a3e4aa40cd890a40f822618986adaf7f8d502af19f31758092843765588c9a49.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a407bfa7af668609387166adfa40214de0d62dcafa922ab6887482cd36e7b331.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a71f8c5226fae2df0cedb7719af1d2c8ea303a1b62ef38a985c6c37beef58d2b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a7bec46abef0bff093f27e1c5d72ad235114b801caba0567b6da319359fd535e.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a7d139b7c8258ec4724915b67bd4d5f1b8c006861d2268280a88f79368467ef8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a91e9e0b6a41181d032d59dea1a39e4a0adac44fdc41a6d50173a43c45efe279.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/a993b0a935ffb3870fffae692fc0d84c9df6b062b3232b0cdbd0d6ed554b3f5a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ac4f69e4dcc588979c764be51488850f23add5e4cd832ffccd6f0d4e1142679c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/acd152c09a05f3c0af1d3279730a69de2cc3715630daa1c7c919f17447c16837.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/adca412806f204b8391faa8b83c953e5af4143aaf6109bc01195e1eb408ca1a9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/adcf564d24d2bb560e418fe8ba6b673d05dcfe31a6bb838a1d1c212872fc699a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ae60dc684d94c4662abf4d4bedfc98a6f2bc44906600d5344d2f45ee85057911.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/aeaae33803bfd6d7737fdaf282f632fd4f706d6be98eab8d5ecf31a20e70383d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/afc30bf17f0361a7b57c7245cdd894e8002db6013bab29c9b73b11ae4371f588.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b040c90ab999461b101cf51ca2a495becd1f3cf410b2bfb04dd66cf13dfe0744.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b08f4678448688ee4bc784c49d93d08aa31dc77b19c718391460152a2573ca16.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b1cd570e3b8cf8a0ff579f6803e40460f46607d49bbac7bf0ab82dedc3dcaf11.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b21964c3ebde815e118701d341270427557758341d3551736d8f17537d43720b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b508e05bb7bbea8faff71d266849b922dd8a2d257dcbbab4d099467dbab42fd8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b53a86523eb49ddcf3c018ed770b861781235558cb5318aa017bd2d76cd9fdae.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b779bcd5692e006ac7c1df2e6ab23e0223c4e06e34f371b4b58eae94eaae4ca5.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/b8ac3f6f3e95e175dbb36c80212e04b28e8958c62c8e9bfe11f2edcd74abc9cc.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bb03b8fb0946923b1fff0181295740c4f34b4f157d193e16d4951f3a3b8b90a8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bc7b6490486ef11474d922dc0b7bc4ab70dd2d66b6ae1d51936d81cc21569ba9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bd1be0ce15486bf1b669b66dddc6519f434d2d0331a02f075d659c3134388b84.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/be479a674120e201575cfd38fa4e006d7ab2d6558f2532e97067c1ac97ee7b76.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bef4fd3bd5b8172cea033f6c2da432a5c220e0e1e49768b13096048d9cb6a5b2.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bf2a88d96f6a1882343ffe57c23d302de7ea61141e0befab58a75133e013a4d1.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bf9272d1feb8acec747ecc052d0f1b8ca47d4a0e1599516c9fffd2ebfc3fd029.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bff0e8a682791ecfe84a5d8921909571788286885989b190e50fb4efb65c9833.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/bff87984072f7098aa70ea3fd21cd74967b3998f2d3891569c34ed7f512e7ee1.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c09fc41ad3f4b6eefc1d62700a050d4802c9b24b2e68d0dd0991630b80e3ffff.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c17d2f9b311b93145fb4de7a13fccbf8a4ad3204a969a9e3898163f3e13c534e.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c29e7b61948756f723dad4bc0584133a0a82d5b0c0f8edf1ce906bf015fb8be2.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c4bda88c7f07abc57481873762e02c4dbf2f4601f11b621729f53c06b23e110c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c65367e033d93e0a3ea8670e390591f73cee6fe0afd790a8fa4ca77e37f82e1f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c65cca3657726d6c398002af82c123d99a74286b0398872e7546df9e99fe9b43.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c7101e5d566a67b224f62b6beed0f60542bbcc183ef68562e3c3e38a027355ab.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/c77e151ce6d754f2573b8d3407746e077a54951bf986fe26ea007b659576689c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/cb703d18d74d3bdd443a0ef2de5f549be57c747255953f27d9d06e8a3c84fc5a.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/cb9071ead3310e37afc76ebb8a753a954257f7bc67cdcc85969cc63333f5cc39.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ccab046ecfaaf3b938fe8d747dcfb17f0bdfd67aff234d62b2a9750695162509.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/cdbf1247d02f27126bd0caf9f9e6715e006168340b95818116275180354feacf.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d03ca5980dc1affbbb8e64385cca71e7e282e7e94c847bbc1f6e82b3ef72ab42.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d071864be9000c19fa079cf1ab9bfe9851bdcbb588858934c4557fa830e2bbb5.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d1e2ef7e4c3a8971bfae8c4f34f47ba3b4a115fbc5365e5d4b9980f3348a1293.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d1f97ea52a0944bcc0e0b69b315237569405d586c297e557f6180d4315fc0180.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d2690c4b8a83e1bb3a99397fc962c3cf1a398b6f57f21242d163c1c40af52ec9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d2dfecd3529e3c76f1cb09ed55ad7483fc90dd0ad80e49d5fac7056956bd785d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d3ead95313d4f45fe2e82cbd3f45f8e3b46092c9e92eaf236547c879dfa99fc8.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d865866082c622c41f5fb5669797015b11d3b70274f510764c69aa52f2fd7871.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/d86669b7a7879c2832acd80bbc5b0b1d685ed856dfafcd9a387d94f9ca708408.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/daba9a8070bc7645996877ade0dc352e70f8f1af8855ac4f65ee4988e22c1d6c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/db6c3179d05f61fc87e4b7dd73246744c1dbd885bfe3f2ec0a0e196297be605f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/db85de55af006e7e9be2216efe60288ffb0d8ef20c462221ca275b0a2257d320.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/db91e4fa30965201031b4a55d706aec037d731253817aa6167681733d1471305.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/dbfc2fe3d418e19303fe38d190f562228761bba9741bc1d4fbcc95b95316d21b.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e16ee92b2bbd5a4c2112cd2ff707f5ca6bdc224abb05a4fe9b8494ce679fd974.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e362cd3b1a9b7ff8660745a40297b196c60a395a9bf7ed6545c60c1fd75a974f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e38881f59997b55f3983ccb2f6f511505eacd9cead46d7498261e42925e50ef9.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e4079bc7f4df77bc09edbd22c78df393858709dc42bf88a11ab44cf2e0bd9606.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e58f3fbd23331c94cf4237be56e388009ecefc791e564b772c445a2ca2ce6a47.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e591538a9fbf03a4bfcf0517333dec6dfdb4b917c14cb1f782630ba495c89053.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/e71689f2c714ad31554209818a89296b2a07b9028e7ff0848a16a318d1128e14.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ea80f0d44fbf154a7d365a2bfc431e5f282342496b360b9df4222d87035f4bf3.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/eafc4f6d3186183117ebdabee4cc9f0bdeb8bf741a42b7111da7fa53d66193ed.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ec8c3e0d611041b93bda2b5b473b81e57b4bd6ff3dea84f795cf1b8b16737309.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ec8d77f16b3cf291aa1ea646fd300b98e2a0c17c5c21d49b0ae77d19adbba8f7.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ecf7cb3c5b917c6b2ca26d67bd2e15fbcaa0f5f91aaaa3fabf24ec5d110c4bf3.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ee2b532f347ab3e0495ece04012d32c1236e658a6de20eb71bf1cc7ceb56b939.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ef19f647b87198e9196d16431a7f194e9621893e0ef7f823bed65c7a1974fc0c.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ef1edcf65369db07cb47d258075c3e51e7799fafcb65fab4fbcd71ee59289ddc.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ef91a9bf1a71b42f2de7c68bbc81b1c72bf648a8de4db17b1a79e59b598a6e33.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/f176c439b3d24cdb322fbe1ad8c5ad62ad1c0a39b8b777e1f401426fae14a6d3.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/f55237cc03c771315a5836f0089cf7ac00a3c410a6b26320444d01cea4471ecc.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/f75a3ea40f78deec699ed70e45a290178c0880597128da66cebc09bed8acddda.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/f7c2d435f2f18852462aa15c1c1c509f842616614bc288e9c04849bf68106421.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/f7c6034ddd7c1cec7ea2f19b44da6970f435d6ea4809f679e15085666f1b0538.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fa26532a6423fc3dc0058e93e36b1904f4b1bea30c3db003e85f46428a15dd72.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fa52644731cdeadeff22728c23b913cbdb4520c1ba84cb648a7609b6b9296e4d.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fb8276c19573d3477989524d432c3bf3e247af8b260a3ac1f779660818e7a39f.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fc32f116152177f57544d8ecac64fdc83e8d45b49c4c990ba05f914e69228740.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fca9a688852f07ff332b68c882378dd2efd17d3bcf8be3cf3072b7adaa594487.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fcb4f73cea89b86366801ceff2abf1a083816e26346fd4272ca1b77a78fc4e85.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fd51e57be3a896f9f70a543090d9f3c65c250b3c461eae4edd1e3ce5eb0c13d7.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/fd773f5a3d1657925b6768acbae252fb99b5d6afde91ebaf6e5121be4151db71.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ff3e3278682df8734f07a4773397a8c72412b609176cc707682d872c4db62f91.chunk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_SharedFiles/Chunks/ffe340f2ff83f89b5d6b34f81a6d36250cfd86e7a6210e551bd6badf802681ef.chunk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_Downloads2/drop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_Downloads2/epfl.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_Downloads3/drr.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/client/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/client/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/common.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/file-downloads.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/file-downloads.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/gossip.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/gossip.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/gossiper.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/gossiper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/logger.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gossiper/messages.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/messages.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/metafiles.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/metafiles.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/process-file-message.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/process-file-message.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gossiper/web-route-handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/web-route-handlers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/gui/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gui/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gossiper/search-file.go" beforeDir="false" afterPath="$PROJECT_DIR$/gossiper/search-file.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -231,41 +29,41 @@
     <session id="-1094567708">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
+          <entry key="project.closed" value="29" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="3" />
           <entry key="project.open.time.5" value="4" />
-          <entry key="project.open.time.6" value="3" />
-          <entry key="project.open.time.7" value="2" />
-          <entry key="project.open.time.8" value="5" />
+          <entry key="project.open.time.6" value="5" />
+          <entry key="project.open.time.7" value="4" />
+          <entry key="project.open.time.8" value="7" />
           <entry key="project.open.time.9" value="7" />
-          <entry key="project.opened" value="29" />
+          <entry key="project.opened" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="8" />
           <entry key="gitignore" value="2" />
-          <entry key="go" value="122" />
+          <entry key="go" value="130" />
           <entry key="html" value="7" />
           <entry key="js" value="8" />
-          <entry key="md" value="4" />
+          <entry key="md" value="5" />
           <entry key="out" value="98" />
           <entry key="s" value="1" />
-          <entry key="sh" value="17" />
+          <entry key="sh" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Bash" value="9" />
+          <entry key="Bash" value="13" />
           <entry key="CSS" value="8" />
-          <entry key="Go" value="122" />
+          <entry key="Go" value="130" />
           <entry key="HTML" value="7" />
           <entry key="JavaScript" value="8" />
-          <entry key="Markdown" value="3" />
+          <entry key="Markdown" value="4" />
           <entry key="PLAIN_TEXT" value="109" />
           <entry key="x86 Plan9 Assembly" value="1" />
         </counts>
@@ -274,27 +72,27 @@
         <counts>
           <entry key="css" value="867" />
           <entry key="gitignore" value="40" />
-          <entry key="go" value="36593" />
+          <entry key="go" value="46009" />
           <entry key="html" value="1500" />
           <entry key="js" value="4372" />
-          <entry key="md" value="432" />
-          <entry key="sh" value="90" />
+          <entry key="md" value="718" />
+          <entry key="sh" value="117" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Bash" value="43" />
+          <entry key="Bash" value="70" />
           <entry key="CSS" value="867" />
-          <entry key="Go" value="36593" />
+          <entry key="Go" value="46009" />
           <entry key="HTML" value="1508" />
           <entry key="JavaScript" value="4364" />
-          <entry key="Markdown" value="432" />
+          <entry key="Markdown" value="718" />
           <entry key="PLAIN_TEXT" value="87" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
         <counts>
-          <entry key=".append" value="3" />
+          <entry key=".append" value="5" />
           <entry key=".p" value="2" />
         </counts>
       </usages-collector>
@@ -304,14 +102,14 @@
     <favorites_list name="Peerster" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5152702">
+    <splitter split-orientation="horizontal" split-proportion="0.56396395">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/gossip.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="229">
-                  <caret line="81" column="46" selection-start-line="81" selection-start-column="46" selection-end-line="81" selection-end-column="46" />
+                <state relative-caret-position="1292">
+                  <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
                 </state>
               </provider>
             </entry>
@@ -319,8 +117,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/search-file.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
+                <state relative-caret-position="153">
+                  <caret line="17" selection-start-line="17" selection-end-line="17" />
                 </state>
               </provider>
             </entry>
@@ -328,11 +126,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/common/common.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-                  <folding>
-                    <element signature="e#16#57#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="170">
+                  <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
@@ -340,26 +135,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/main.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
+                <state relative-caret-position="391">
                   <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gui/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="265">
-                  <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/main.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
                 </state>
               </provider>
             </entry>
@@ -367,8 +144,47 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/messages.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="161">
-                  <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+                <state relative-caret-position="17">
+                  <caret line="68" column="17" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gui/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="306">
+                  <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/main.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="357">
+                  <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/README.md">
+              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+                <state split_layout="SPLIT">
+                  <first_editor relative-caret-position="374">
+                    <caret line="22" selection-start-line="22" selection-end-line="22" />
+                  </first_editor>
+                  <second_editor />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gossiper/blockchain.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="193">
+                  <caret line="119" column="21" selection-start-line="119" selection-start-column="21" selection-end-line="119" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
@@ -376,8 +192,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/web-route-handlers.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="384">
-                  <caret line="153" column="24" selection-start-line="153" selection-start-column="24" selection-end-line="153" selection-end-column="24" />
+                <state relative-caret-position="2346">
+                  <caret line="145" column="69" selection-start-line="145" selection-start-column="69" selection-end-line="145" selection-end-column="69" />
                 </state>
               </provider>
             </entry>
@@ -387,28 +203,19 @@
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gossiper/search-file.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="309">
-                  <caret line="168" column="17" lean-forward="true" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gossiper/vectorclock.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="122">
-                  <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gui/css/style.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
+                <state relative-caret-position="850">
                   <caret line="50" column="17" selection-start-line="50" selection-start-column="1" selection-end-line="50" selection-end-column="17" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test3.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
                 </state>
               </provider>
             </entry>
@@ -416,17 +223,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test_1_ring.sh">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="714">
-                  <caret line="42" selection-start-line="42" selection-end-line="42" selection-end-column="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/gui/js/script.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+                <state relative-caret-position="697">
+                  <caret line="41" selection-start-line="41" selection-end-line="41" selection-end-column="7" />
                 </state>
               </provider>
             </entry>
@@ -434,11 +232,35 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="212">
-                  <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
-                  <folding>
-                    <element signature="e#18#131#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="2193">
+                  <caret line="136" column="4" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="15" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gossiper/blockchain.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="5253">
+                  <caret line="315" column="21" selection-start-line="315" selection-start-column="5" selection-end-line="315" selection-end-column="21" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="408">
+                  <caret line="77" column="1" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gossiper/simple.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="255">
+                  <caret line="18" column="23" selection-start-line="16" selection-start-column="8" selection-end-line="25" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -446,8 +268,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/process-file-message.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="229">
-                  <caret line="290" column="52" selection-start-line="290" selection-start-column="52" selection-end-line="290" selection-end-column="52" />
+                <state relative-caret-position="1547">
+                  <caret line="99" column="64" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="64" />
                 </state>
               </provider>
             </entry>
@@ -455,8 +277,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/file-downloads.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="183">
-                  <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+                <state relative-caret-position="1190">
+                  <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -464,17 +286,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gossiper/metafiles.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="190">
-                  <caret line="85" column="57" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+                <state relative-caret-position="2737">
+                  <caret line="170" column="29" selection-start-line="170" selection-start-column="29" selection-end-line="170" selection-end-column="29" />
                 </state>
               </provider>
             </entry>
@@ -496,36 +309,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>filesListening</find>
-      <find>filesListening[</find>
-      <find>gsspr.filesListening[metaFileReplyString]</find>
-      <find>close(</find>
-      <find>fmt.pri</find>
-      <find>downloadfil</find>
-      <find>close</find>
-      <find>getid</find>
-      <find>idname</find>
-      <find>start</find>
-      <find>searchfilelocall</find>
-      <find>hex</find>
-      <find>logdo</find>
-      <find>nodes</find>
-      <find>encodehe</find>
-      <find>encodehex</find>
-      <find>validmeta</find>
-      <find>origin</find>
-      <find>encode</find>
-      <find>before</find>
-      <find>chunknum</find>
-      <find>range</find>
-      <find>replysito</find>
-      <find>searchr</find>
-      <find>logfi</find>
-      <find>time.</find>
-      <find>valid</find>
-      <find>all</find>
+      <find>MetafileHash</find>
+      <find>sharef</find>
+      <find>simple</find>
+      <find>decode</find>
+      <find>insertblock</find>
+      <find>isBlockPOWValid</find>
+      <find>hash</find>
+      <find>add</find>
+      <find>hoplimi</find>
+      <find>handlemess</find>
+      <find>fmt.Print</find>
+      <find>nonce</find>
+      <find>hex.</find>
+      <find>strings.Jo</find>
+      <find>logFoundSearchMatch</find>
+      <find>processblock</find>
+      <find>...</find>
+      <find>metafile</find>
+      <find>gsspr</find>
+      <find>for _, peer := range gsspr.peersList</find>
+      <find>:]</find>
+      <find>time.Sl</find>
+      <find>second</find>
+      <find>log</find>
+      <find>getblocksf</find>
+      <find>prevhas</find>
       <find>fmt.</find>
-      <find>filesbox</find>
+      <find>random</find>
+      <find>fmt.Pri</find>
+      <find>forkshor</find>
     </findStrings>
     <replaceStrings>
       <replace>structs.</replace>
@@ -574,7 +387,6 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/gossiper/process-data-message.go" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/client/README.md" />
         <option value="$PROJECT_DIR$/test_2_ring.sh" />
         <option value="$PROJECT_DIR$/test_hw2_ex2.sh" />
         <option value="$PROJECT_DIR$/test_hw2_ex3.sh" />
@@ -585,15 +397,19 @@
         <option value="$PROJECT_DIR$/gossiper/web-route-handlers.go" />
         <option value="$PROJECT_DIR$/gui/js/script.js" />
         <option value="$PROJECT_DIR$/client/main.go" />
-        <option value="$PROJECT_DIR$/common/common.go" />
         <option value="$PROJECT_DIR$/gossiper/file-downloads.go" />
-        <option value="$PROJECT_DIR$/gossiper/gossip.go" />
-        <option value="$PROJECT_DIR$/gossiper/gossiper.go" />
-        <option value="$PROJECT_DIR$/gossiper/logger.go" />
-        <option value="$PROJECT_DIR$/gossiper/messages.go" />
         <option value="$PROJECT_DIR$/gossiper/metafiles.go" />
         <option value="$PROJECT_DIR$/gossiper/process-file-message.go" />
+        <option value="$PROJECT_DIR$/gossiper/messages.go" />
+        <option value="$PROJECT_DIR$/gossiper/gossip.go" />
+        <option value="$PROJECT_DIR$/kill.sh" />
         <option value="$PROJECT_DIR$/gossiper/search-file.go" />
+        <option value="$PROJECT_DIR$/gossiper/gossiper.go" />
+        <option value="$PROJECT_DIR$/test3.sh" />
+        <option value="$PROJECT_DIR$/gossiper/logger.go" />
+        <option value="$PROJECT_DIR$/gossiper/blockchain.go" />
+        <option value="$PROJECT_DIR$/common/common.go" />
+        <option value="$PROJECT_DIR$/client/README.md" />
         <option value="$PROJECT_DIR$/main.go" />
       </list>
     </option>
@@ -605,10 +421,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2780" />
-    <option name="y" value="-17" />
-    <option name="width" value="582" />
-    <option name="height" value="621" />
+    <option name="x" value="2289" />
+    <option name="y" value="493" />
+    <option name="width" value="1551" />
+    <option name="height" value="879" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -676,16 +492,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\client" />
-      <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\gossiper" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\common" />
       <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster" />
       <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\gossiper" />
       <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\gui\style" />
       <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\gui\js" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster" />
+      <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\client" />
+      <recent name="C:\Users\Elias M\go\src\github.com\eliasmpw\Peerster\gossiper" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -744,11 +561,11 @@
     <frame x="1912" y="-4" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.753937" visible="true" weight="0.10660981" />
-      <window_info id="Structure" order="1" sideWeight="0.246063" side_tool="true" visible="true" weight="0.10660981" />
-      <window_info id="Favorites" order="2" sideWeight="0.17480719" side_tool="true" weight="0.15771812" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7425" visible="true" weight="0.114072494" />
+      <window_info id="Structure" order="1" sideWeight="0.2560778" side_tool="true" weight="0.110341154" />
+      <window_info id="Favorites" order="2" sideWeight="0.2575" side_tool="true" weight="0.13892618" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49731544" weight="0.329429" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4968017" weight="0.3288889" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49463087" weight="0.3396779" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.64697987" weight="0.39970717" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -756,8 +573,8 @@
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.329429" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4717484" visible="true" weight="0.43555555" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5282516" side_tool="true" visible="true" weight="0.43555555" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.46801707" visible="true" weight="0.21333334" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.53198296" side_tool="true" visible="true" weight="0.21333334" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -771,12 +588,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/structs/parameters.go" />
-    <entry file="file://$PROJECT_DIR$/gui/style/style.css" />
-    <entry file="file://$PROJECT_DIR$/gossiper/index.html" />
-    <entry file="file://$PROJECT_DIR$/gui/js/jquery.min.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -826,28 +637,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="170">
-            <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="119">
             <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -895,13 +696,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/simple.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gui/js/bootstrap.min.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -924,128 +718,167 @@
     <entry file="file://$PROJECT_DIR$/C.out">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_1_ring.sh">
+    <entry file="file://C:/Go/src/encoding/hex/hex.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" selection-start-line="42" selection-end-line="42" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/common.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-          <folding>
-            <element signature="e#16#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/file-downloads.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
-          <folding>
-            <element signature="e#18#131#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/gossip.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="81" column="46" selection-start-line="81" selection-start-column="46" selection-end-line="81" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/metafiles.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="85" column="57" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/process-file-message.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="290" column="52" selection-start-line="290" selection-start-column="52" selection-end-line="290" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/search-file.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/messages.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        <state relative-caret-position="211">
+          <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gossiper/vectorclock.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
+        <state relative-caret-position="1309">
           <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="50" column="17" selection-start-line="50" selection-start-column="1" selection-end-line="50" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gui/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+        <state relative-caret-position="4981">
+          <caret line="293" column="38" selection-start-line="293" selection-start-column="38" selection-end-line="293" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gossiper/web-route-handlers.go">
+    <entry file="file://$PROJECT_DIR$/kill.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="153" column="24" selection-start-line="153" selection-start-column="24" selection-end-line="153" selection-end-column="24" />
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/gossip.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gui/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+        <state relative-caret-position="306">
+          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/web-route-handlers.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2346">
+          <caret line="145" column="69" selection-start-line="145" selection-start-column="69" selection-end-line="145" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="17" selection-start-line="50" selection-start-column="1" selection-end-line="50" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_1_ring.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" selection-start-line="41" selection-end-line="41" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/gossiper.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2193">
+          <caret line="136" column="4" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/simple.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="23" selection-start-line="16" selection-start-column="8" selection-end-line="25" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/process-file-message.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1547">
+          <caret line="99" column="64" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/file-downloads.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/metafiles.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2737">
+          <caret line="170" column="29" selection-start-line="170" selection-start-column="29" selection-end-line="170" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test3.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/logger.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="77" column="1" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/blockchain.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="119" column="21" selection-start-line="119" selection-start-column="21" selection-end-line="119" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/messages.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="68" column="17" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/common.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gossiper/search-file.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="374">
+            <caret line="22" selection-start-line="22" selection-end-line="22" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+        <state relative-caret-position="357">
+          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
         </state>
       </provider>
     </entry>

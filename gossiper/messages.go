@@ -26,6 +26,7 @@ type PrivateMessage struct {
 	HopLimit    uint32
 }
 
+// Structs for file download
 type DataRequest struct {
 	Origin      string
 	Destination string
@@ -42,6 +43,7 @@ type DataReply struct {
 	Data        []byte
 }
 
+// Structs for search
 type SearchRequest struct {
 	Origin   string
 	Budget   uint64
@@ -62,6 +64,29 @@ type SearchResult struct {
 	ChunkCount   uint64
 }
 
+// Structs for blockchain
+type TxPublish struct {
+	File     File
+	HopLimit uint32
+}
+
+type BlockPublish struct {
+	Block    Block
+	HopLimit uint32
+}
+
+type File struct {
+	Name         string
+	Size         int64
+	MetafileHash []byte
+}
+
+type Block struct {
+	PrevHash     [32]byte
+	Nonce        [32]byte
+	Transactions []TxPublish
+}
+
 // Gossip packet
 type GossipPacket struct {
 	Simple        *SimpleMessage
@@ -72,6 +97,8 @@ type GossipPacket struct {
 	DataReply     *DataReply
 	SearchRequest *SearchRequest
 	SearchReply   *SearchReply
+	TxPublish     *TxPublish
+	BlockPublish  *BlockPublish
 }
 
 // QueuedMessage

@@ -77,7 +77,20 @@ func handleClientMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 			WriteFileOnDisk(fileContent, downloadDir, fileName)
 			// Store the chunks
 			WriteChunksOnDisk(*chunks, gsspr.chunkFilesDir, fileName)
+			processTransactionReceived(gsspr, TxPublish{
+				File: File{
+					Name: fileName,
+					Size: int64(fileSize),
+					MetafileHash: hashValue,
+				},
+				HopLimit: uint32(gsspr.hopLimit), // Set to 10 by default
+			}, "")
 			logFileShared(fileName, hex.EncodeToString(hashValue))
+			broadcastNewFile(gsspr, File{
+				Name:         fmdAux.Name,
+				Size:         int64(fmdAux.Size),
+				MetafileHash: fmdAux.HashValue,
+			})
 		} else {
 			// Else handle as a gossip message
 			newPackage := GossipPacket{
@@ -200,6 +213,14 @@ func handleMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAddr *ne
 	if packetReceived.SearchReply != nil {
 		// Handle data reply
 		processSearchReply(gsspr, *packetReceived.SearchReply, sourceAddr.String())
+	}
+	if packetReceived.TxPublish != nil {
+		// Handle transaction received
+		processTransactionReceived(gsspr, *packetReceived.TxPublish, sourceAddr.String())
+	}
+	if packetReceived.BlockPublish != nil {
+		// Handle block publish received
+		processBlockPublishReceived(gsspr, *packetReceived.BlockPublish, sourceAddr.String())
 	}
 }
 

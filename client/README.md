@@ -14,3 +14,9 @@
 ---
 - **request** string
 	Request a chunk or a metafile of this hash
+---
+- **keywords** string
+	Comma separated values that will be searched in the names of the files shared by peers
+---
+- **budget** number
+	(Optional) Starting search budget (how many peers we will search the file on)

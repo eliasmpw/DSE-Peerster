@@ -1,9 +1,12 @@
 package common
 
 import (
+	"encoding/hex"
+	"fmt"
 	"math/rand"
 	"net"
 	"strconv"
+	"strings"
 )
 
 const BUFFER_SIZE = 65535
@@ -66,4 +69,16 @@ func MergeUint64Slices(left, right []uint64) []uint64 {
 	}
 	into = append(into, right[rightLast:]...)
 	return into
+}
+
+func IntTo32Hex(value int) [32]byte {
+	var auxArray [32]byte
+	auxSlice, _ := hex.DecodeString(fmt.Sprintf("%064x", value))
+	copy(auxArray[:], auxSlice)
+
+	return auxArray
+}
+
+func UInt64ArrayToString(myArray []uint64, separator string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(myArray), " ", separator, -1), "[]")
 }

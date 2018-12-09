@@ -1,7 +1,9 @@
 package gossiper
 
 import (
+	"encoding/hex"
 	"fmt"
+	"github.com/eliasmpw/Peerster/common"
 	"strings"
 )
 
@@ -83,10 +85,39 @@ func logFileReconstructed(fileName string) {
 	fmt.Printf("RECONSTRUCTED file %s\n", fileName)
 }
 
-func logFoundSearchMatch(fileName, peerName string) {
-	fmt.Printf("FOUND match %s at %s\n", fileName, peerName)
+func logFoundSearchMatch(fileName, peerName string, hash []byte, chunkMap []uint64) {
+	fmt.Printf("FOUND match %s at %s metafile=%s chunks=%s\n", fileName, peerName, hex.EncodeToString(hash), common.UInt64ArrayToString(chunkMap, ","))
 }
 
 func logSearchFinished() {
 	fmt.Printf("SEARCH FINISHED\n")
+}
+
+func logBlockIntegratedChain(blockList []Block) {
+	allBlocksStr := ""
+	currentBlock := " "
+	for i := len(blockList) - 1; i >= 0; i-- {
+		hash := blockList[i].Hash()
+		currentBlock = " " + hex.EncodeToString(hash[:]) + ":" + hex.EncodeToString(blockList[i].PrevHash[:]) + ":"
+		for _, auxTransaction := range blockList[i].Transactions {
+			currentBlock = currentBlock + auxTransaction.File.Name + ","
+		}
+		currentBlock = strings.TrimSuffix(currentBlock, ",")
+		allBlocksStr = allBlocksStr + currentBlock
+	}
+	fmt.Printf("CHAIN%s\n", allBlocksStr)
+}
+
+func logFoundBlock(block Block) {
+	hash := block.Hash()
+	fmt.Printf("FOUND-BLOCK %s\n", hex.EncodeToString(hash[:]))
+}
+
+func logForkLonger(rewindSize int) {
+	fmt.Printf("FORK-LONGER rewind %d blocks\n", rewindSize)
+}
+
+func logForkShorter(block Block) {
+	hash := block.PrevHash
+	fmt.Printf("FORK-SHORTER %s\n", hex.EncodeToString(hash[:]))
 }
