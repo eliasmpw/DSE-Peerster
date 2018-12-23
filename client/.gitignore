@@ -1,0 +1,9 @@
+ENV/
+data/
+.idea/
+__pycache__
+.ipynb_checkpoints
+.vscode/
+*.iml
+*.out
+client.exe
