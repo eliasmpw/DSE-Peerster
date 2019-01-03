@@ -3,10 +3,12 @@ package gossiper
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"github.com/eliasmpw/Peerster/common"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 var myGossiper *Gossiper
@@ -31,9 +33,42 @@ func createRouteHandlers(gsspr *Gossiper) *mux.Router {
 	r.HandleFunc("/shareFile", shareFileHandler).Methods("POST")
 	r.HandleFunc("/downloadFile", downloadFileHandler).Methods("POST")
 	r.HandleFunc("/searchFile", searchFileHandler).Methods("POST")
+	// For streaming
+	r.HandleFunc("/streamFileInfo", streamFileInfoHandler).Methods("POST")
+	r.PathPrefix("/streaming/").Handler(http.StripPrefix("/streaming/", http.FileServer(http.Dir(myGossiper.sharedFilesDir+"/streaming/"))))
+	// For gui file serving
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 
 	return r
+}
+
+func streamFileInfoHandler(writer http.ResponseWriter, request *http.Request) {
+	var fileSize int64
+
+	reqBody, _ := ioutil.ReadAll(request.Body)
+	fileName := string(reqBody[:])
+	filePath := myGossiper.sharedFilesDir + "/streaming/" + fileName
+
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		fileSize = 0
+	} else {
+		file, openError := os.Open(filePath)
+		fileInfo, statError := file.Stat()
+		if openError != nil || statError != nil {
+			fmt.Println("Error while trying to open file", filePath, openError, statError)
+			return
+		}
+
+		fileSize = fileInfo.Size()
+	}
+
+	response := File{
+		Name: fileName,
+		Size: fileSize,
+	}
+
+	json.NewEncoder(writer).Encode(response)
+	request.Body.Close()
 }
 
 func newMessageHandler(writer http.ResponseWriter, request *http.Request) {

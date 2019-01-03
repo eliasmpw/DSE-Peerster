@@ -9,9 +9,12 @@ import (
 	"time"
 )
 
-const SHARED_FILES_DIR = "./_SharedFiles/"
-const CHUNK_FILES_DIR = "./_SharedFiles/Chunks/"
-const DOWNLOADED_FILES_DIR = "./_Downloads/"
+const SHARED_FILES_DIR = "./_SharedFiles"
+const DOWNLOADED_FILES_DIR = "./_Downloads"
+
+//const SHARED_FILES_DIR = "./_SharedFiles/"
+//const CHUNK_FILES_DIR = "./_SharedFiles/Chunks/"
+//const DOWNLOADED_FILES_DIR = "./_Downloads/"
 const HOP_LIMIT = 10
 const HASH_SIZE = 256
 const CHUNK_SIZE = 8192
@@ -31,6 +34,7 @@ func main() {
 	peers := flag.String("peers", "", "Comma separated list of peers of the form ip:port")
 	simple := flag.Bool("simple", false, "Run gossiper in simple broadcast mode")
 	rTimer := flag.Int("rtimer", 0, "Route rumors sending period in seconds, 0 to disable sending of route rumors (default 0)")
+	df := flag.String("df", "", "download folder suffix")
 	flag.Parse()
 	var peersSlice []string
 	if *peers == "" {
@@ -46,10 +50,14 @@ func main() {
 		*name,
 		peersSlice,
 		*simple,
+
 		*rTimer,
-		SHARED_FILES_DIR,
-		CHUNK_FILES_DIR,
-		DOWNLOADED_FILES_DIR,
+		SHARED_FILES_DIR+*df+"/",
+		SHARED_FILES_DIR+*df+"/Chunks/",
+		DOWNLOADED_FILES_DIR+*df+"/",
+		//SHARED_FILES_DIR,
+		//CHUNK_FILES_DIR,
+		//DOWNLOADED_FILES_DIR,
 		HOP_LIMIT,
 		HASH_SIZE,
 		CHUNK_SIZE,

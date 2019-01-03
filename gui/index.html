@@ -5,6 +5,7 @@
     <title>Peerster GUI Client</title>
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <script src="js/script.js" type="text/javascript"></script>
+    <script src="js/streaming.js" type="text/javascript"></script>
     <script src="js/popper.min.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -30,7 +31,7 @@
         </div>
     </div>
     <div class="row">
-        <div id="chatBox" class="col-md-8">
+        <div id="chatBox" class="col-md-6">
             <div class="row">
                 <h5 class="text-center text-primary">
                     Chat Box
@@ -47,7 +48,7 @@
                 </button>
             </div>
         </div>
-        <div id="peerNodeBox" class="col-md-4">
+        <div id="peerNodeBox" class="col-md-3">
             <div class="row">
                 <h5 class="text-center text-primary">
                     Peer Node Box
@@ -64,9 +65,7 @@
                 </button>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div id="allNodesBox" class="col-md-6">
+        <div id="allNodesBox" class="col-md-3">
             <div class="row">
                 <h5 class="text-center text-primary">
                     All Known Nodes
@@ -103,7 +102,9 @@
                 </div>
             </div>
         </div>
-        <div id="filesBox" class="col-md-3">
+    </div>
+    <div class="row">
+        <div id="filesBox" class="col-md-4">
             <div class="row">
                 <div id="shareFileBox">
                     <h5>Share File</h5>
@@ -131,9 +132,7 @@
             </div>
         </div>
 
-
-        <div id="filesBox" class="col-md-3">
-
+        <div id="filesBox" class="col-md-4">
             <div class="row">
                 <div id="searchFileBox">
                     <div class="row">
@@ -150,6 +149,25 @@
                     <div class="row">
                         <div id="allFilesSearch">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="filesBox" class="col-md-4">
+            <div class="row">
+                <div id="audioStreamingBox">
+                    <div class="row">
+                        <h5 class="text-center text-primary">
+                            Audio Streaming Player
+                        </h5>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="streamFileName" placeholder="File Name"/>
+                        <button type="button" id="streamButton" class="btn btn-success">Stream</button>
+                    </div>
+                    <div class="row">
+                        <audio id="audioPlayer" controls></audio>
                     </div>
                 </div>
             </div>

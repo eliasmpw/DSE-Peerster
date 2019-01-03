@@ -91,6 +91,8 @@ func handleClientMessage(gsspr *Gossiper, packetReceived *GossipPacket, sourceAd
 				Size:         int64(fmdAux.Size),
 				MetafileHash: fmdAux.HashValue,
 			})
+
+			transcodeStreamableFile(fileName)
 		} else {
 			// Else handle as a gossip message
 			newPackage := GossipPacket{

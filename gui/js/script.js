@@ -26,6 +26,7 @@ $(document).ready(function () {
     $('#shareFile').click(shareFileBtn);
     $('#downloadFileButton').click(downloadFileBtn);
     $('#searchFileButton').click(searchFileBtn);
+    $('#streamButton').click(getInfoForStreaming);
     $('body').on('click', '.searchResultFile', downloadFileFromSearch);
 
     let idName;
